@@ -1,0 +1,28 @@
+
+/* 메인 */
+.main-wrap {
+  width: 100%;
+  min-height: 1000px;
+}
+.main-title {
+  position: fixed;
+  top: 10%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* 반응형 */
+@media (max-height: 747px) {
+  .main-title {
+    top: 5%;
+  }
+}
+
+@media (min-height: 1000px) {
+  .main-title {
+    top: 15%;
+  }
+  .main-title h1 {
+    font-size: 70px;
+  }
+}

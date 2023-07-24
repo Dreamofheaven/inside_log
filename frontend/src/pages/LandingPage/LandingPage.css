@@ -1,0 +1,9 @@
+.page-wrap {
+  width: 100%;
+  min-height: 1000px;
+}
+.page-title {
+  display: grid;
+  text-align: center;
+  justify-content: center;
+}
