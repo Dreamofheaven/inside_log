@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import './LandingPage.css'
 import Footer from '../../components/Footer'
+import LoginForm from '../../components/LoginForm'
 
 function LandingPage() { 
   return (
@@ -9,7 +10,7 @@ function LandingPage() {
         <h1>내 안의 긍정이</h1>
       </div>
       <div className='page-main'>  
-        
+        {/* <LoginForm /> */}
       </div>
       <Footer/>
     </main>

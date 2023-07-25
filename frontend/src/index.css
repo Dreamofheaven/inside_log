@@ -27,6 +27,8 @@ code {
   --title-color: #8C3333;
 
   --h1-font-family: 'HS-Regular', sans-serif;
+
+  --border-radius-size: 10px;
 }
 
 h1 {

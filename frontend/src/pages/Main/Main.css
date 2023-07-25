@@ -11,6 +11,17 @@
   transform: translate(-50%, -50%);
 }
 
+/* create 아이콘 */
+.create-post {
+  position: fixed;
+  top: 90%;
+  left: 75%;
+  font-size: 80px; 
+  color: var(--primary-color);
+  z-index: 1;
+}
+
+
 /* 반응형 */
 @media (max-height: 747px) {
   .main-title {
@@ -24,5 +35,14 @@
   }
   .main-title h1 {
     font-size: 70px;
+  }
+  .create-post {
+    font-size: 90px;
+  }
+}
+
+@media (min-width: 415px) {
+  .create-post {
+    left: 85%;
   }
 }
