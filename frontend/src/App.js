@@ -1,13 +1,19 @@
 // import Footer from './components/Footer'
+import { Routes, Route, Link } from 'react-router-dom';
 import Main from './pages/Main/Main';
 import LandingPage from './pages/LandingPage/LandingPage';
+import Create from './pages/Create/Create';
 import './App.css';
 
 function App() {
   return (
     <div>
-      {/* <LandingPage/> */}
-      <Main/>
+      <Routes>
+        <Route path='/' element={<LandingPage />} />
+        <Route path='/main' element={<Main />} />
+        <Route path='/main' element={<Main />} />
+        <Route path='/create' element={<Create />} />
+      </Routes>
     </div>
   );
 }
