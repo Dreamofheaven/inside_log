@@ -6,11 +6,8 @@ import LoginForm from '../../components/LoginForm'
 function LandingPage() { 
   return (
     <main className='page-wrap'>
-      <div className="page-title">
-        <h1>내 안의 긍정이</h1>
-      </div>
       <div className='page-main'>  
-        {/* <LoginForm /> */}
+        <LoginForm />
       </div>
       <Footer/>
     </main>
