@@ -5,7 +5,7 @@ from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from rest_framework.response import Response
 from django.core.paginator import Paginator
 
-from base.models import Users, Post,Review
+from base.models import Post, Review
 from base.serializers import PostSerializer
 
 from rest_framework import status
@@ -19,7 +19,7 @@ openai.api_key= os.getenv("OPENAI_API_KEY")
 def completion(word):
     content=openai.ChatCompletion.create(
     model='gpt-3.5-turbo',
-    messages={'role':'user','content':'{word}를 긍정적으로 생각하도록 바꿔줘'})
+    messages={'role':'user','content':'다음 문장을 긍정적으로 생각할 수 있도록 바꿔줘 => "{word}"'})
     return content[0].message.content
 
 
@@ -43,6 +43,7 @@ def getPosts(request):
     serializer = PostSerializer(posts, many=True) 
     return Response({'posts': serializer.data, 'page': page, 'pages': paginator.num_pages})
 
+
 @api_view(['POST'])
 def createPosts(request):
     user=request.user
@@ -59,34 +60,46 @@ def createPosts(request):
     serializer=PostSerializer(posts, many=False)
     return Response(serializer.data)
 
+
 @api_view(['POST'])#####
-def createPostsReviews(request,pk):
+def createPostsReview(request,pk):
     comment=completion(request)
     user=request.user
     post=Post.object.get(_id=pk)
     data=request.data
+    now=datetime.now()
 
     alreadyExists=post.review_set.filter(id=id)
     if alreadyExists:
         content={'detail':'아직 안 풀렸구나. 새로운 문장을 만들어줄게.'}
-        created_at = datetime.now()
+    
         review=Review.objects.create(
             post=post,
             user=user,
             name='chatgpt',
             comment=comment,
-            createdAt=,
+            createdAt=now,
             _id=post.body,
         )
+        return Response(content)
+    else: 
+        review=Review.objects.create(
+            post=post,
+            user=user,
+            name='chatgpt',
+            comment=comment,
+            createdAt=now,
+            _id=post.body,
+        )
+        return Response('Review Added')
 
-    serializer=PostSerializer(review,many=Fals)
-    return Response(serializer.data)
 
 @api_view(['GET'])
 def getPost(request, pk):
     post = Post.object.get(_id=pk)
     serializer = PostSerializer(post, many=True)
     return Response(serializer.data)
+
 
 @api_view(['PUT'])
 @permission_classes([IsAdminUser])
@@ -101,6 +114,7 @@ def updatePosts(request, pk):
 
     serializer = PostSerializer(post, many=False)
     return Response(serializer.data)
+
 
 @api_view(['DELETE'])
 @permission_classes([IsAdminUser])
