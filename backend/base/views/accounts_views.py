@@ -28,9 +28,10 @@ class MyTokenObtainPairView(TokenObtainPairView):
 @api_view(['POST'])
 def registerUser(request):
     data = request.data
+    message = {"여기 통과함"}
     try:
         user = User.objects.create(
-            username=data['name'],
+            username=data['username'],
             email=data['email'],
             password=make_password(data['password'])
         )
