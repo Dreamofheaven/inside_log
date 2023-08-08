@@ -4,6 +4,7 @@ import Main from './pages/Main/Main';
 import LandingPage from './pages/LandingPage/LandingPage';
 import Create from './pages/Create/Create';
 import './App.css';
+import Register from './pages/Register/Register';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route path='/main' element={<Main />} />
         <Route path='/main' element={<Main />} />
         <Route path='/create' element={<Create />} />
+        <Route path='/register' element={<Register />} />
       </Routes>
     </div>
   );
