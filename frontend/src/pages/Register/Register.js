@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../../components/Message'
 import './Register.css'
-import { register } from '../actions/userActions'
+import { register } from '../../actions/userActions'
 
 function Register({location, history}) {
   // 여기가 javascript코드!
