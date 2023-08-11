@@ -13,9 +13,13 @@ function Register({location, history}) {
   const [message, setMessage] = useState('')
 
   const dispatch = useDispatch()
-  const redirect = location.search ? location.search.split('=')[1] : '/'
+
+  const queryParams = new URLSearchParams(location?.search || ''); 
+  const redirectParam = queryParams.get('redirect');
+  const redirect = redirectParam || '/';
+  
   const userRegister = useSelector(state => state.userRegister)
-  const {error, loading, userInfo} = userRegister
+  const {error, userInfo} = userRegister || {}
 
   useEffect(()=> {
     if (userInfo) {

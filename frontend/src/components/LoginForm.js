@@ -11,15 +11,20 @@ function LoginForm({ location, history }) {
 
   const dispatch = useDispatch()
 
-  const redirect = location.search ? location.search.split('=')[1] : '/'
-  
+  const queryParams = new URLSearchParams(location?.search || ''); 
+  const redirectParam = queryParams.get('redirect');
+  const redirect = redirectParam || '/';
+
   const userLogin = useSelector(state => state.userLogin)
-  const { error, loading, userInfo } = userLogin
+  const { error, userInfo } = userLogin || {}
+  
 
   useEffect(() => {
     if (userInfo) {
+      console.log('이미 있는 회원입니다.')
       history.push(redirect)
     }
+  // }, [history, userInfo])
   }, [history, userInfo, redirect])
 
   const submitHandler = (e) => {
@@ -33,7 +38,7 @@ function LoginForm({ location, history }) {
 
       <form onSubmit={submitHandler}>
         <input type="text" name="email" id="email" placeholder='Enter Email'  onChange={(e) => setEmail(e.target.value)} />
-        <input type="text" name="password" id="password" placeholder='Enter Password' onChange={(e) => setPassword(e.target.value)} />
+        <input type="password" name="password" id="password" placeholder='Enter Password' onChange={(e) => setPassword(e.target.value)} />
         <button type="submit">로그인</button>
       </form>
       <Link to={'/register'}>
