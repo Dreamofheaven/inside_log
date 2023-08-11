@@ -3,7 +3,7 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.response import Response
 
-from django.contrib.auth.models import User
+from base.models import User
 from base.serializers import UserSerializer, UserSerializerWithToken
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
@@ -35,10 +35,11 @@ def registerUser(request):
             email=data['email'],
             password=make_password(data['password'])
         )
-
         serializer = UserSerializerWithToken(user, many=False)
+       
         return Response(serializer.data)
     except:
+        print('회원가입 실패')
         message = {'detail': '해당 이메일의 사용자가 이미 존재합니다.'}
         return Response(message, status=status.HTTP_400_BAD_REQUEST)
 
