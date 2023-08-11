@@ -18,7 +18,7 @@ export const login = (email, password) => async (dispatch) => {
             }
         }
         const {data} = await axios.post(
-            '/api/users/login/', {'username': email, 'password':password},
+            'http://localhost:8000/accounts/login/', {'username': email, 'password':password},
             config
         )
         dispatch({
@@ -40,7 +40,7 @@ export const logout=()=>(dispatch)=>{
     dispatch({type:USER_LOGOUT})
     dispatch({type:USER_DETAILS_RESET})
 }
-export const register = (name, email, password) => async (dispatch) => {
+export const register = (username, email, password) => async (dispatch) => {
     try {
         dispatch({
             type: USER_REGISTER_REQUEST
@@ -51,8 +51,8 @@ export const register = (name, email, password) => async (dispatch) => {
             }
         }
         const {data} = await axios.post(
-            '/api/users/register/',
-            {'name': name, 'email': email, 'password': password},
+            'http://localhost:8000/accounts/register/',
+            {'username': username, 'email': email, 'password': password},
             config
         )
         dispatch({
@@ -88,7 +88,7 @@ export const deleteUser=(id) => async (dispatch, getState)=> {
             }
         }
         const {data}=await axios.delete(
-            '/api/accounts/delete/${id}/',
+            'http://localhost:8000/accounts/delete/${id}',
             config
         )
         dispatch({
@@ -119,7 +119,8 @@ export const updateUser = (user) => async (dispatch, getState)=>{
             }
         }
         const {data}=await axios.put(
-            '/api/accounts/update/${user._id}/',
+            // '/api/accounts/update/${user._id}/',
+            'http://localhost:8000/accounts/update/${id}',
             user,
             config
         )

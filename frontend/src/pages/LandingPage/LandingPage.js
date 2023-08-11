@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react'
 import './LandingPage.css'
 import Footer from '../../components/Footer'
 import LoginForm from '../../components/LoginForm'
+import { useSelector, useDispatch } from 'react-redux';
 
 function LandingPage() { 
-  const [showLoginForm, setShowLoginForm] = useState(false);
+  const [showLoginForm, setShowLoginForm] = useState(false)
 
   const toggleLoginForm = () => { 
     setShowLoginForm(!showLoginForm);
