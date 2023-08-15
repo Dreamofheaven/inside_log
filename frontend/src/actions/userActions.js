@@ -28,7 +28,8 @@ export const login = (email, password) => async (dispatch) => {
         })
         localStorage.setItem('userInfo',JSON.stringify(data))
          
-        // console.log('로그인 성공!!🚀')
+        console.log('로그인 성공!!🚀')
+        window.location.assign('/main')
         // return redirect("/main")
     }catch(error){
         dispatch({
@@ -69,6 +70,7 @@ export const register = (name, email, password) => async (dispatch) => {
         })
         localStorage.setItem('userInfo',JSON.stringify(data))
         console.log('회원가입 성공✈')
+        window.location.assign('/')
     } catch(error){
         dispatch({
             type:USER_REGISTER_FAIL,
