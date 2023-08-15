@@ -6,7 +6,7 @@ import { register } from '../../actions/userActions'
 
 function Register({location, history}) {
   // 여기가 javascript코드!
-  const [username, setName] = useState('')
+  const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword]=useState('')
@@ -24,6 +24,7 @@ function Register({location, history}) {
   useEffect(()=> {
     if (userInfo) {
         history.push(redirect)
+        window.location.href = '/';
     }
   }, [history, userInfo, redirect])
 
@@ -33,7 +34,7 @@ function Register({location, history}) {
     if (password != confirmPassword){
         setMessage('비밀번호가 일치하지 않습니다.')
     } else {
-        dispatch(register(username, email, password))
+        dispatch(register(name, email, password))
     }
   }
 
@@ -44,7 +45,7 @@ function Register({location, history}) {
       {error && <Message variant={'danger'}>{error}</Message>}
       
       <form onSubmit={submitHandler}>
-        <input type="text" name="username" id="username" placeholder='이름' onChange={(e) => setName(e.target.value)} />
+        <input type="text" name="name" id="name" placeholder='이름' onChange={(e) => setName(e.target.value)} />
         <input type="text" name="email" id="email" placeholder='이메일' onChange={(e) => setEmail(e.target.value)} />
         <input type="text" name="password" id="password" placeholder='비밀번호' onChange={(e) => setPassword(e.target.value)} />
         <input type="text" name="passwordConfirm" id="passwordConfirm" placeholder='비밀번호 확인' onChange={(e) => setConfirmPassword(e.target.value)} />
