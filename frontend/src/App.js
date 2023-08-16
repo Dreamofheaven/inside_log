@@ -5,6 +5,7 @@ import LandingPage from './pages/LandingPage/LandingPage';
 import Create from './pages/Create/Create';
 import './App.css';
 import Register from './pages/Register/Register';
+import Footer from './components/Footer';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path='/create' element={<Create />} />
         <Route path='/register' element={<Register />} />
       </Routes>
+      <Footer/>
     </div>
   );
 }
