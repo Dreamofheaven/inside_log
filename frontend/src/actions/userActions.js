@@ -27,7 +27,7 @@ export const login = (email, password) => async (dispatch) => {
             payload: data
         })
         localStorage.setItem('userInfo',JSON.stringify(data))
-         
+        
         console.log('로그인 성공!!🚀')
         window.location.assign('/main')
         // return redirect("/main")
