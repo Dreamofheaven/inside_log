@@ -45,13 +45,14 @@ def getPosts(request):
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def createPosts(request):
+    data = request.data
     user = request.user
     now = datetime.now()
     
     posts=Post.objects.create(
         # id=user,
-        title='짜증나',
-        body='종강 언제 시켜줘. 교수 다리 걸고 넘어뜨려서 종강시켜버리고 싶다.',
+        title= data['title'],
+        body= data['body'],
         user_id=user,
         status=True,
         created_at=now,
