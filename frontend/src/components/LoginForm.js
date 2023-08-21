@@ -22,7 +22,8 @@ function LoginForm({ location, history }) {
   useEffect(() => {
     if (userInfo) {
       console.log('이미 로그인이 된 상태입니다.')
-      history.push(redirect)
+      window.location.assign('/main')
+      // history.push(redirect)
     }
   }, [history, userInfo, redirect])
 
