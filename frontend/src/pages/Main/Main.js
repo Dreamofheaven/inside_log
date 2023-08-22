@@ -4,22 +4,31 @@ import { Link } from 'react-router-dom'
 import Footer from '../../components/Footer'
 import Tree from '../../components/Tree'
 import { IoMdAddCircle } from "react-icons/io";
-// import Background from '../../components/Background'
 import axios from 'axios'
 import PostList from '../../components/PostList'
+import { useSelector } from 'react-redux'
 
 function Main() { 
+  const userLogin = useSelector(state => {return state.userLogin.userInfo})
+
   const [posts, setPosts] = useState([])
 
   useEffect(() => {
-    async function fetchPost(){
-      const { data } = await axios.get('http://127.0.0.1:8000/posts/')
+    async function fetchPosts(){
+      const { data } = await axios.get('http://127.0.0.1:8000/posts/', 
+        {
+          headers: {
+            'Content-type': 'application/json',
+            Authorization : `Bearer ${userLogin.token}`, // JWT 토큰을 헤더에 추가
+          },
+        }
+      )
       setPosts(data.posts)
       console.log('post 불러오기 성공')
       console.log(data.posts)
     }
 
-    fetchPost()
+    fetchPosts()
   }, [])
 
   return (
@@ -31,12 +40,11 @@ function Main() {
         <IoMdAddCircle className='create-post' />
       </Link>
       <Tree/>
-      <div>
+      <div className='posts-wrap'>
         {posts.map(post => (
           <PostList post={post} />
         ))}
       </div>
-
       <Footer/>
     </main>
   )

@@ -1,0 +1,24 @@
+.PostList-box {
+  background-image: url(../../public/images/apple.png);
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  
+  display: grid;
+  text-align: center;
+  height: 13vh;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 5px 5px 5px; 
+  position: relative;
+}
+
+.PostList-box h4 {
+  text-align: center;
+  position: absolute; /* 위치 조정을 위해 절대 위치 지정 */
+  top: 45%; /* 원하는 위치로 조정 */
+  left: 50%;
+  transform: translate(-50%, -50%); /* 중앙 정렬 */
+  z-index: 1; /* 텍스트가 이미지 위에 표시되도록 z-index 설정 */
+  color: white;
+}
+

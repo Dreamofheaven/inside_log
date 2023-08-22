@@ -24,14 +24,18 @@ def completion(word):
 
 
 @api_view(['GET'])
+# @permission_classes([IsAuthenticated])
 def getPosts(request):
-    query = request.query_params.get('keyword', '')
-    
-    posts = Post.objects.filter(title__icontains=query)
+    print(request.data)
+    query = request.query_params.get('keyword')
+    if query == None:
+        query = ''
+    print("query : ", query)
+    posts = Post.objects.filter(user_id=request.user, title__icontains=query)
     
     # 5개의 post를 한 페이지로 설정(개수는 나중에 프론트에서 보고 다시 설정)
     page = request.query_params.get('page', 1)
-    paginator = Paginator(posts, 5)
+    paginator = Paginator(posts, 20)
 
     try:
         posts = paginator.page(page)
