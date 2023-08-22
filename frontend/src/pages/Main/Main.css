@@ -21,6 +21,17 @@
   z-index: 1;
 }
 
+/* 열매 grid */
+.posts-wrap {
+  display: grid;
+  width: 50vh;
+  margin: 0 auto;
+  margin-top: 15vh;
+  grid-template-columns: 1fr 1fr 1fr; 
+  grid-template-rows: auto auto auto; 
+  gap: 10px;
+}
+
 
 /* 반응형 */
 @media (max-height: 747px) {
