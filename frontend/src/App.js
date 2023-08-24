@@ -16,7 +16,7 @@ function App() {
         <Route path='/register' element={<Register />} />
         <Route path='/main' element={<Main />} />
         <Route path='/create' element={<Create />} />
-        <Route path='/post/:id' element={<Detail />} />
+        <Route path='/posts/:id' element={<Detail />} />
       </Routes>
       <Footer/>
     </div>

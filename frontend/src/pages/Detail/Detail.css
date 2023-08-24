@@ -1,0 +1,76 @@
+/* 글꼴 */
+@import url('https://fonts.googleapis.com/css2?family=Gasoek+One&family=Nanum+Gothic&family=Orbit&display=swap');
+
+.detail-page {
+  display: grid;
+  justify-content: center;
+  padding-top: 5vh;
+}
+.detail-page-box {
+  background-color: ivory;
+  border-radius: 10px;
+  width: 80vh;
+  height: 70vh;
+  text-align: center;
+  padding: 25px;
+}
+
+/* 페이지 번호 */
+.detail-title p {
+  font-family: 'Nanum Gothic', sans-serif;
+}
+/* 제목 */
+.detail-title h2 {
+  font-size: 28px;
+  font-weight: bold;
+  font-family: 'Orbit', sans-serif;
+}
+/* 날짜 */
+.date {
+  font-size: 15px;
+  font-family: 'Gasoek One', sans-serif;
+}
+/* 내용 */
+.detail-body {
+  /* margin-top: 20px; */
+}
+.detail-body p{
+  font-size: 20px;
+  font-family: 'Orbit', sans-serif;
+}
+
+/* 챗지피티 댓글 */
+.detail-review {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+
+  position: relative;
+  display: inline-block;
+  max-width: calc(100% - 70px);
+  padding: 10px;
+  margin-top: 60px;
+  font-size: 13px;
+  border-radius: 10px;
+
+  margin-left: 20px;
+  background-color: #d0dec7;
+
+  /* 높이 제한 및 스크롤 */
+  max-height: 100px;
+  overflow: auto;
+}
+.icon {
+  font-size: 30px;
+  color: #7A9D54;
+}
+.detail-review::before {
+  position: absolute;
+  display: block;
+  top: 0;
+  font-size: 1.5rem;
+
+  left: -15px;
+  content: "◀";
+  color: #d0dec7;
+}

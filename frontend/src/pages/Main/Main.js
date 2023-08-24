@@ -1,35 +1,25 @@
-import React, { useState, useEffect } from 'react'
-import './Main.css'
+import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import { IoMdAddCircle } from "react-icons/io";
+import { useSelector, useDispatch } from 'react-redux'
+import { listPosts } from '../../actions/postAction'
 import Footer from '../../components/Footer'
 import Tree from '../../components/Tree'
-import { IoMdAddCircle } from "react-icons/io";
-import axios from 'axios'
 import PostList from '../../components/PostList'
-import { useSelector } from 'react-redux'
+import './Main.css'
 
-function Main() { 
+function Main({}) { 
+  const dispatch = useDispatch()
+  const postList = useSelector(state => state.postList)
+
   const userLogin = useSelector(state => {return state.userLogin.userInfo})
 
-  const [posts, setPosts] = useState([])
+  // const { loading, error, posts, pages, page } = postList
+  const { posts, error } = postList
 
   useEffect(() => {
-    async function fetchPosts(){
-      const { data } = await axios.get('http://127.0.0.1:8000/posts/', 
-        {
-          headers: {
-            'Content-type': 'application/json',
-            Authorization : `Bearer ${userLogin.token}`, // JWT 토큰을 헤더에 추가
-          },
-        }
-      )
-      setPosts(data.posts)
-      console.log('post 불러오기 성공')
-      console.log(data.posts)
-    }
-
-    fetchPosts()
-  }, [])
+    dispatch(listPosts(userLogin))
+  }, [userLogin, dispatch])
 
   return (
     <main className='main-wrap'>
@@ -42,7 +32,7 @@ function Main() {
       <Tree/>
       <div className='posts-wrap'>
         {posts.map(post => (
-          <PostList post={post} />
+          <PostList key={post.id} post={post} />
         ))}
       </div>
       <Footer/>

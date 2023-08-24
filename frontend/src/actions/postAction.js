@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { useSelector } from 'react-redux'
 import {
     POST_LIST_REQUEST, POST_LIST_SUCCESS, POST_LIST_FAIL,
     POST_DETAILS_REQUEST, POST_DETAILS_SUCCESS, POST_DETAILS_FAIL,
@@ -7,11 +8,18 @@ import {
     POST_UPDATE_REQUEST, POST_UPDATE_SUCCESS, POST_UPDATE_FAIL, POST_UPDATE_RESET,
 } from '../constants/postConstants'
 
-export const listPosts =  (keyword=' ') => async {dispatch} => {
+export const listPosts = (userLogin) => async (dispatch) => {
     try {
         dispatch({type: POST_LIST_REQUEST})
 
-        const{data}=await axios.get('/api/posts${keyword}')
+        const{data}=await axios.get('http://127.0.0.1:8000/posts/',
+            {
+                headers: {
+                    'Content-type': 'application/json',
+                    Authorization : `Bearer ${userLogin.token}`, // JWT 토큰을 헤더에 추가
+                },
+            }
+        )
         dispatch({
             type:POST_LIST_SUCCESS, payload: data
         })
@@ -23,12 +31,13 @@ export const listPosts =  (keyword=' ') => async {dispatch} => {
             : error.message,
         })
     }
-
 }
+
+
 export const createProduct = () => async (dispatch, getState) => {
     try {
         dispatch({
-            type: PRODUCT_CREATE_REQUEST
+            type: POST_CREATE_REQUEST
         })
 
         const {
@@ -48,14 +57,14 @@ export const createProduct = () => async (dispatch, getState) => {
             config
         )
         dispatch({
-            type: PRODUCT_CREATE_SUCCESS,
+            type: POST_CREATE_SUCCESS,
             payload: data,
         })
 
 
     } catch (error) {
         dispatch({
-            type: PRODUCT_CREATE_FAIL,
+            type: POST_CREATE_FAIL,
             payload: error.response && error.response.data.detail
                 ? error.response.data.detail
                 : error.message,
@@ -68,7 +77,7 @@ export const createProduct = () => async (dispatch, getState) => {
 export const updateProduct = (product) => async (dispatch, getState) => {
     try {
         dispatch({
-            type: PRODUCT_UPDATE_REQUEST
+            type: POST_UPDATE_REQUEST
         })
 
         const {
@@ -88,20 +97,20 @@ export const updateProduct = (product) => async (dispatch, getState) => {
             config
         )
         dispatch({
-            type: PRODUCT_UPDATE_SUCCESS,
+            type: POST_UPDATE_SUCCESS,
             payload: data,
         })
 
 
         dispatch({
-            type: PRODUCT_DETAILS_SUCCESS,
+            type: POST_DETAILS_SUCCESS,
             payload: data
         })
 
 
     } catch (error) {
         dispatch({
-            type: PRODUCT_UPDATE_FAIL,
+            type: POST_UPDATE_FAIL,
             payload: error.response && error.response.data.detail
                 ? error.response.data.detail
                 : error.message,
