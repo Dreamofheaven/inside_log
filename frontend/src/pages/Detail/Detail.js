@@ -12,14 +12,16 @@ import './Detail.css'
 
 function Detail() {
   const { id } = useParams()
-
   const [post, setPost] = useState(null)
+
+  const [buttonClicked, setButtonClicked] = useState(false)
 
   useEffect(() => {
     async function fetchPost() {
       const { data } = await axios.get(`http://127.0.0.1:8000/posts/${id}/`)
       setPost(data)
     }
+    console.log('실행되었습니다.')
 
     fetchPost()
   }, [id]) //id가 변경될 때마다 useEffect가 실행된다.
@@ -28,6 +30,13 @@ function Detail() {
     return <div>해당 게시글을 찾을 수 없습니다.</div>
   }
   const created_at = `${post.created_at.split('T')[0]} ${post.created_at.split('T')[1].split(':')[0]}:${post.created_at.split('T')[1].split(':')[1]}`;
+
+  const handleGPT = () => {
+    if (!buttonClicked) {
+      console.log('지피티야 맘마먹자')
+      setButtonClicked(true)
+    }
+  } 
 
   return (
     <div className='detail-page'>
@@ -50,6 +59,9 @@ function Detail() {
           <p>{post.status}</p>
         </div>
 
+        <div className='call-button'>
+          <button onClick={handleGPT} disabled={buttonClicked}>chatGPT의 위로</button>
+        </div>
         <FaRegFaceGrin className='icon'/>
         <div className='detail-review'>
           <p>나는 챗지피이다. ㅇㅎㄹㅇㅀㅇㄹㅇㄹㅇㅀㅇㅀ

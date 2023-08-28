@@ -16,11 +16,15 @@ import openai
 import os 
 
 openai.api_key= os.getenv("OPENAI_API_KEY")
+
 def completion(word):
-    content=openai.ChatCompletion.create(
+    response=openai.ChatCompletion.create(
     model='gpt-3.5-turbo',
-    messages={'role':'user','content':'다음 문장을 긍정적으로 생각할 수 있도록 바꿔줘 => "{word}"'})
-    return content[0].message.content
+    # messages={'role':'user','content':'다음 문장을 긍정적으로 생각할 수 있도록 바꿔줘 => "{word}"'})
+    # return response[0].message.content
+        messages=[{'role':'user','content': word}])
+    return response['choices'][0]['message']['content'].strip()
+
 
 
 @api_view(['GET'])
@@ -66,35 +70,38 @@ def createPosts(request):
     return Response(serializer.data)
 
 
-@api_view(['POST'])#####
+@api_view(['GET'])
 def createPostsReview(request,pk):
-    comment=completion(request)
-    user=request.user
-    post=Post.object.get(id=pk)
+    post=Post.objects.get(id=pk)
+    print(post.body)
+    comment=completion(post.body)
+    # user=request.user
     data=request.data
     now=datetime.now()
 
-    alreadyExists=post.review_set.filter(id=id)
+    print('코멘트 값' + comment)
+
+    alreadyExists=post.review_set.filter(_id=pk)
     if alreadyExists:
         content={'detail':'아직 안 풀렸구나. 새로운 문장을 만들어줄게.'}
     
         review=Review.objects.create(
             post=post,
-            user=user,
+            # user=user,
             name='chatgpt',
             comment=comment,
             createdAt=now,
-            _id=post.body,
+            # _id=post.body,
         )
         return Response(content)
     else: 
         review=Review.objects.create(
             post=post,
-            user=user,
+            # user=user,
             name='chatgpt',
             comment=comment,
             createdAt=now,
-            _id=post.body,
+            # _id=post.body,
         )
         return Response('Review Added')
 

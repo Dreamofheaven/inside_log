@@ -39,6 +39,11 @@
   font-family: 'Orbit', sans-serif;
 }
 
+/* 챗지피티 호출하기 */
+.call-button {
+  
+}
+
 /* 챗지피티 댓글 */
 .detail-review {
   display: flex;
