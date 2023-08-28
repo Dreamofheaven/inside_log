@@ -9,6 +9,7 @@ import axios from 'axios'
 
 import './Create.css'
 
+
 function Create() {
 
   // const dispatch = useDispatch()
@@ -63,14 +64,14 @@ function Create() {
               onChange={(e) => setTitle(e.target.value)}
             />
           </div>
-          <div className='create-page-form-content'>
+          <div id = 'message' className='create-page-form-content'>
             <textarea 
             placeholder='내용을 입력하세요.'
             value={body}
             onChange={(e) => setBody(e.target.value)}
             />
           </div>
-          <input className='create-page-form-submit' onClick={() => console.log('등록눌렀음')} type='submit' value='등록'/>
+          <input id = 'send' className='create-page-form-submit' onClick={() => console.log('등록눌렀음')} type='submit' value='등록'/>
         </form>
       </div>
     </div>
