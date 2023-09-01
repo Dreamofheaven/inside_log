@@ -42,13 +42,19 @@ class ReviewSerializer(serializers.ModelSerializer):
 
         
 class PostSerializer(serializers.ModelSerializer):
-    reviews=serializers.SerializerMethodField(read_only=True)
+    reviews = ReviewSerializer(many=True, read_only=True)
 
     class Meta:
-        model=Post
-        fields='__all__'
+        model = Post
+        fields = '__all__'
+    
+    # reviews = serializers.SerializerMethodField(read_only=True)
 
-    def get_reviews(self, obj):
-        reviews=obj.review_set.all()
-        serializer=ReviewSerializer(reviews, many=True)
-        return serializer.data
+    # class Meta:
+    #     model=Post
+    #     fields='__all__'
+
+    # def get_reviews(self, obj):
+    #     reviews=obj.review_set.all() 
+    #     serializer=ReviewSerializer(reviews, many=True)
+    #     return serializer.data

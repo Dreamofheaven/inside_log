@@ -11,7 +11,6 @@ import './Create.css'
 
 
 function Create() {
-
   // const dispatch = useDispatch()
 
   // const postCreate = useSelector(state => state.postCreate)
@@ -73,7 +72,7 @@ function Create() {
           </div>
           <input id = 'send' className='create-page-form-submit' onClick={() => console.log('등록눌렀음')} type='submit' value='등록'/>
         </form>
-      </div>
+      </div>   
     </div>
   )
 }

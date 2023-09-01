@@ -6,7 +6,7 @@ from rest_framework.response import Response
 from django.core.paginator import Paginator, EmptyPage
 
 from base.models import Post, Review
-from base.serializers import PostSerializer
+from base.serializers import PostSerializer, ReviewSerializer
 
 from rest_framework import status
 from datetime import datetime
@@ -73,18 +73,29 @@ def createPosts(request):
 @api_view(['GET'])
 def createPostsReview(request,pk):
     post=Post.objects.get(id=pk)
-    print(post.body)
-    comment=completion(post.body)
+
+    comment=completion(post.body) # 이게 chatgpt답변 
     # user=request.user
     data=request.data
     now=datetime.now()
 
     print('코멘트 값' + comment)
 
-    alreadyExists=post.review_set.filter(_id=pk)
-    if alreadyExists:
+    if comment: # 코멘트가 있다면 기존 답변 삭제하고 다시 생성
         content={'detail':'아직 안 풀렸구나. 새로운 문장을 만들어줄게.'}
-    
+        review=Review.objects.all().delete() # chatgpt답변 삭제
+        review=Review.objects.create(
+            post=post, 
+            # user=user,
+            name='chatgpt',
+            comment=comment,
+            createdAt=now,
+            # _id=post.body,
+        )
+        serializer=ReviewSerializer(review, many=False)
+        return Response(serializer.data)
+        # return Response(content)
+    else: # 없다면 그냥 생성
         review=Review.objects.create(
             post=post,
             # user=user,
@@ -93,17 +104,9 @@ def createPostsReview(request,pk):
             createdAt=now,
             # _id=post.body,
         )
-        return Response(content)
-    else: 
-        review=Review.objects.create(
-            post=post,
-            # user=user,
-            name='chatgpt',
-            comment=comment,
-            createdAt=now,
-            # _id=post.body,
-        )
-        return Response('Review Added')
+        serializer=ReviewSerializer(review, many=False)
+        return Response(serializer.data)
+        # return Response('Review Added')
 
 
 @api_view(['GET'])
