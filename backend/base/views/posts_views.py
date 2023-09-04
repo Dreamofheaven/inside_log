@@ -69,21 +69,27 @@ def createPosts(request):
     serializer=PostSerializer(posts, many=False)
     return Response(serializer.data)
 
-
 @api_view(['GET'])
+def getPostsReview(request,pk):
+    print(request.data)
+    reviews = Review.objects.filter(post_id=pk)    
+    # 5개의 post를 한 페이지로 설정(개수는 나중에 프론트에서 보고 다시 설정)
+
+    serializer = ReviewSerializer(reviews, many=True) 
+    return Response(serializer.data)
+
+@api_view(['POST'])
 def createPostsReview(request,pk):
     post=Post.objects.get(id=pk)
-
     comment=completion(post.body) # 이게 chatgpt답변 
     # user=request.user
     data=request.data
     now=datetime.now()
 
     print('코멘트 값' + comment)
-
     if comment: # 코멘트가 있다면 기존 답변 삭제하고 다시 생성
         content={'detail':'아직 안 풀렸구나. 새로운 문장을 만들어줄게.'}
-        review=Review.objects.all().delete() # chatgpt답변 삭제
+        review=Review.objects.filter(post_id=pk).delete() # chatgpt답변 삭제
         review=Review.objects.create(
             post=post, 
             # user=user,
@@ -116,6 +122,7 @@ def getPost(request, pk):
     # return Response(serializer.data)
     try:
         post = Post.objects.get(id=pk)
+        print('포스트 불러오기')
     except Post.DoesNotExist:
         return Response({'detail': 'Post not found.'}, status=status.HTTP_404_NOT_FOUND)
 
