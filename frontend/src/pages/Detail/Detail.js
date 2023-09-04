@@ -8,6 +8,7 @@ import { useParams } from 'react-router-dom'
 import { FaArrowLeftLong } from 'react-icons/fa6'
 import { FaRegFaceGrin } from 'react-icons/fa6'
 import axios from 'axios'
+import CreateReview from '../../components/CreateReview'
 import './Detail.css'
 
 function Detail() {
@@ -15,14 +16,26 @@ function Detail() {
   const [post, setPost] = useState(null)
   const [review, setReview] = useState("")
 
-  const [buttonClicked, setButtonClicked] = useState(false)
+  // const [buttonClicked, setButtonClicked] = useState(false)
 
   useEffect(() => {
-    async function fetchPost() {
-      const { data } = await axios.get(`http://127.0.0.1:8000/posts/${id}/`)
-      setPost(data)
+    async function fetchPostAndReview() {
+      try {
+        const [postResponse, reviewResponse] = await Promise.all([
+          axios.get(`http://127.0.0.1:8000/posts/${id}/`),
+          axios.get(`http://127.0.0.1:8000/posts/${id}/reviews/`)
+        ])
+        const postData = postResponse.data
+        const reviewData = reviewResponse.data
+
+        setPost(postData)
+        setReview(reviewData)
+      } catch (error) {
+        console.log('detail에서 오류발생', error)
+      }
     }
-    fetchPost()
+    fetchPostAndReview()
+
   },[id]) 
 
   if (!post) {
@@ -30,23 +43,6 @@ function Detail() {
   }
 
   const created_at = `${post.created_at.split('T')[0]} ${post.created_at.split('T')[1].split(':')[0]}:${post.created_at.split('T')[1].split(':')[1]}`;
-
-  //리뷰 받아오기
-
-  async function fetchReview() {
-    const { data } = await axios.get(`http://127.0.0.1:8000/posts/${id}/reviews/`)
-    setReview(data)
-    console.log(data)
-  }
-
-  const handleGPT = () => {
-    if (!buttonClicked) {
-      setButtonClicked(true)
-
-      fetchReview()
-      console.log(review)
-    }
-  }
 
   return (
     <div className='detail-page'>
@@ -70,11 +66,12 @@ function Detail() {
         </div>
 
         <div className='call-button'>
-          <button onClick={handleGPT} disabled={buttonClicked}>chatGPT의 위로</button>
+          <CreateReview id={id} />
         </div>
         <FaRegFaceGrin className='icon'/>
         <div className='detail-review'>
-          <p>{(!buttonClicked) && `${review.comment}`} </p>
+          {/* <p>{(!buttonClicked) && `${review.comment}`} </p> */}
+          <p>{ review[0].comment }</p>
         </div>
       </div>
     </div>
