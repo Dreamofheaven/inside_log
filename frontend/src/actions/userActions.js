@@ -44,6 +44,10 @@ export const logout=()=>(dispatch)=>{
     localStorage.removeItem('userInfo')
     dispatch({type:USER_LOGOUT})
     dispatch({type:USER_DETAILS_RESET})
+    window.location.replace('/')
+    // window.location.assign('/')
+   
+
 }
 export const register = (name, email, password) => async (dispatch) => {
     try {

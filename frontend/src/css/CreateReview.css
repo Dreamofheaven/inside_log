@@ -1,0 +1,16 @@
+.gptButton {
+    width: 100%;
+    height: 90%;
+}
+
+.gptButton button{
+    /* background-color: var(--secondary-color); */
+    background-color: #77af9c;
+    color: white;
+    font-weight: bold;
+    border: 0;
+    border-radius: 10px;
+    padding: 2vh;
+    text-align :center;
+    font-size:1.5vh;
+}

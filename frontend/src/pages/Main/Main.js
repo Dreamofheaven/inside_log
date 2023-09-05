@@ -6,6 +6,7 @@ import { listPosts } from '../../actions/postAction'
 import Footer from '../../components/Footer'
 import Tree from '../../components/Tree'
 import PostList from '../../components/PostList'
+import Logout from '../../components/Logout';
 import './Main.css'
 
 function Main({}) { 
@@ -22,16 +23,17 @@ function Main({}) {
   }, [userLogin, dispatch])
 
   return (
-    <main className='main-wrap'>
+    <main className='main-wrap'>      
       <div className='main-title'>
         <h1>내 안의 긍정이</h1>
       </div>
+      <Logout />
       <Link to='/create'>
         <IoMdAddCircle className='create-post' />
       </Link>
       <Tree/>
       <div className='posts-wrap'>
-        {posts.map(post => (
+        {posts && posts.map(post => (
           <PostList key={post.id} post={post} />
         ))}
       </div>
