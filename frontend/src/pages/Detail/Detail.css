@@ -10,7 +10,7 @@
   background-color: ivory;
   border-radius: 10px;
   width: 80vh;
-  height: 70vh;
+  height: 75vh;
   text-align: center;
   padding: 25px;
 }
@@ -18,30 +18,25 @@
 /* 페이지 번호 */
 .detail-title p {
   font-family: 'Nanum Gothic', sans-serif;
+  font-size:2vh;
 }
 /* 제목 */
 .detail-title h2 {
-  font-size: 28px;
+  /* font-size: 28px; */
+  font-size: 4vh;
   font-weight: bold;
   font-family: 'Orbit', sans-serif;
 }
 /* 날짜 */
 .date {
-  font-size: 15px;
+  /* font-size: 15px; */
+  font-size: 1.5vh;
   font-family: 'Gasoek One', sans-serif;
 }
 /* 내용 */
-.detail-body {
-  /* margin-top: 20px; */
-}
 .detail-body p{
-  font-size: 20px;
+  font-size: 2.5vh;
   font-family: 'Orbit', sans-serif;
-}
-
-/* 챗지피티 호출하기 */
-.call-button {
-  
 }
 
 /* 챗지피티 댓글 */
@@ -54,15 +49,16 @@
   display: inline-block;
   max-width: calc(100% - 70px);
   padding: 10px;
-  margin-top: 60px;
-  font-size: 13px;
+  margin-top: 9vh;
+  /* font-size: 13px; */
+  font-size: 1.5vh;
   border-radius: 10px;
 
   margin-left: 20px;
   background-color: #d0dec7;
 
   /* 높이 제한 및 스크롤 */
-  max-height: 100px;
+  height: 15vh;
   overflow: auto;
 }
 .icon {
@@ -79,3 +75,6 @@
   content: "◀";
   color: #d0dec7;
 }
+
+
+/* 반응형 */

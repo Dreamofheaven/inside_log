@@ -5,10 +5,17 @@
   min-height: 1000px;
 }
 .main-title {
-  position: fixed;
-  top: 10%;
+  /* display: flex;
+  justify-content: space-between; */
+  /* align-items: center;  */
+  /* position: fixed; */
+  /* top: 10%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);  */
+}
+.main-title h1 {
+  /* position: fixed; */
+  text-align: center;
 }
 
 /* create 아이콘 */

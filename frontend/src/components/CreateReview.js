@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 // import { useSelector } from 'react-redux'
+import '../css/CreateReview.css'
 import axios from 'axios'
 
 function CreateReview({id}) {
@@ -18,8 +19,8 @@ function CreateReview({id}) {
     }
     
   return (
-    <div>
-      <button onClick={handleReview}>chatGPT의 위로</button>
+    <div className='gptButton'>
+      <button type="button" className='btn btn-primary' onClick={handleReview}>chatGPT의 위로</button>
     </div>
   )
 }

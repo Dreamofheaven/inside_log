@@ -11,6 +11,8 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 from django.contrib.auth.hashers import make_password
 from rest_framework import status
 
+from django.contrib.auth import logout # 로그아웃_0905
+
 #토큰 커스터마이징
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     def validate(self,attrs):
@@ -72,5 +74,3 @@ def deleteUser(request,pk):
     userForDeletion=User.objects.get(id=pk)
     userForDeletion.delete()
     return Response('User was deleted')
-
-    

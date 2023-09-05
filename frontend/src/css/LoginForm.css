@@ -8,3 +8,20 @@ input {
   width: 20rem;
   height: 4vh;
 }
+
+/* 로그아웃 컴포넌트 */
+.logOut {
+  position: fixed;
+  left: 75%;
+}
+.logOut button {
+  /* text-align: center; */
+  padding: 2vh;
+  width: 15vh;
+  background-color: #77af9c;
+  border: 0;
+  border-radius: 10px ;
+  color: white;
+  font-size: 3vh;
+  font-weight: bold;
+}
