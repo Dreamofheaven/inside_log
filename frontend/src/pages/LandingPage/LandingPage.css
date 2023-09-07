@@ -5,18 +5,30 @@
   top: 30%;
   position: fixed;
 }
-/* .page-main {
-  
-} */
+
+/* 제목로고 */
 .page-main h1 {
   font-size: 60px;
 }
+
+/* 로그인버튼 */
 .login-btn {
   width: 10rem;
   height: 3rem;
+  border: 0;
+  border-radius: 10px;
+  background-color: #77af9c;
 }
 .login-btn p {
+  color: white;
   font-family: sans-serif;
   font-size: 20px;
   margin: 0;
+  font-weight: bold;
+}
+.login-btn:hover {
+  cursor: pointer;
+}
+.login-btn p:hover {
+  color: var(--third--color);
 }
