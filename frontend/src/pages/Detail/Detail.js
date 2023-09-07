@@ -15,8 +15,28 @@ function Detail() {
   const { id } = useParams()
   const [post, setPost] = useState(null)
   const [review, setReview] = useState("")
-
+  const [buttonClickCount, setButtonClickCount] = useState(0); // 버튼 클릭 횟수를 저장
   // const [buttonClicked, setButtonClicked] = useState(false)
+  
+  //이게 실행되어요 !
+  // const handleButtonClick = () => {
+  //   console.log('눌렸다!!☆☆☆')
+  //   // 버튼 클릭 시 버튼 클릭 횟수를 증가시킴
+  //   setButtonClickCount((prevCount) => prevCount + 1);
+  // };
+
+  const handleButtonClick = async() => {
+    try{
+      console.log('눌렸다!!☆☆☆')
+      // 버튼 클릭 시 버튼 클릭 횟수를 증가시킴
+      setButtonClickCount((prevCount) => prevCount + 1);
+      const response = await axios.get(`http://127.0.0.1:8000/posts/${id}/reviews/`);
+      const reviewData = response.data;
+      setReview(reviewData);
+    }catch(error){
+      console.error(error);
+    }
+  };
 
   useEffect(() => {
     async function fetchPostAndReview() {
@@ -27,7 +47,7 @@ function Detail() {
         ])
         const postData = postResponse.data
         const reviewData = reviewResponse.data
-
+  
         setPost(postData)
         setReview(reviewData)
       } catch (error) {
@@ -35,12 +55,12 @@ function Detail() {
       }
     }
     fetchPostAndReview()
-
-  },[id]) 
-
-  if (!post) {
-    return <div>해당 게시글을 찾을 수 없습니다.</div>
-  }
+  
+  },[buttonClickCount]);
+    
+    if (!post) {
+      return <div>해당 게시글을 찾을 수 없습니다.</div>
+    }
 
   const created_at = `${post.created_at.split('T')[0]} ${post.created_at.split('T')[1].split(':')[0]}:${post.created_at.split('T')[1].split(':')[1]}`;
 
@@ -64,14 +84,12 @@ function Detail() {
         <div className='detail-status'> 
           <p>{post.status}</p>
         </div>
-
         <div className='call-button'>
-          <CreateReview id={id} />
+          <CreateReview id={id} handleButtonClick={handleButtonClick} />
         </div>
         <FaRegFaceGrin className='icon'/>
         <div className='detail-review'>
-          {/* <p>{(!buttonClicked) && `${review.comment}`} </p> */}
-          <p>{ review[0].comment }</p>
+          {review && review.length > 0 ? <p>{review[0].comment}</p> : <p>리뷰아직없음</p>}  
         </div>
       </div>
     </div>
@@ -79,4 +97,6 @@ function Detail() {
 }
 
 export default Detail
+
+
 

@@ -13,27 +13,25 @@ function Register({location, history}) {
   const [message, setMessage] = useState('')
 
   const dispatch = useDispatch()
-
-  const queryParams = new URLSearchParams(location?.search || ''); 
-  const redirectParam = queryParams.get('redirect');
-  const redirect = redirectParam || '/';
   
-  const userRegister = useSelector(state => state.userRegister)
-  const {error, userInfo} = userRegister || {}
+  const userRegister = useSelector(state => state.register)
+  const {error, userInfo} = userRegister 
 
   useEffect(()=> {
     if (userInfo) {
-        history.push(redirect)
         window.location.href = '/';
     }
-  }, [history, userInfo, redirect])
+  }, [userInfo])
 
   const submitHandler = (e) => {
     e.preventDefault()
 
     if (password != confirmPassword){
         setMessage('비밀번호가 일치하지 않습니다.')
-    } else {
+    } else if (error){
+      setMessage(error.message)
+    }
+    else {
         dispatch(register(name, email, password))
     }
   }
@@ -45,10 +43,10 @@ function Register({location, history}) {
       {error && <Message variant={'danger'}>{error}</Message>}
       
       <form onSubmit={submitHandler}>
-        <input type="text" name="name" id="name" placeholder='이름' onChange={(e) => setName(e.target.value)} />
-        <input type="text" name="email" id="email" placeholder='이메일' onChange={(e) => setEmail(e.target.value)} />
-        <input type="text" name="password" id="password" placeholder='비밀번호' onChange={(e) => setPassword(e.target.value)} />
-        <input type="text" name="passwordConfirm" id="passwordConfirm" placeholder='비밀번호 확인' onChange={(e) => setConfirmPassword(e.target.value)} />
+        <input required type="name" name="name" id="name" placeholder='이름' onChange={(e) => setName(e.target.value)} />
+        <input required type="email" name="email" id="email" placeholder='이메일' onChange={(e) => setEmail(e.target.value)} />
+        <input required type="password" name="password" id="password" placeholder='비밀번호' onChange={(e) => setPassword(e.target.value)} />
+        <input required type="password" name="passwordConfirm" id="passwordConfirm" placeholder='비밀번호 확인' onChange={(e) => setConfirmPassword(e.target.value)} />
         <button type="submit">회원가입</button>
       </form>
     </div>

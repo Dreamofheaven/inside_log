@@ -1,12 +1,48 @@
-.form {
+/* 로그인 컴포넌트 */
+.loginForm {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 2vh;
 }
-input {
+.loginForm form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.loginForm input {
   width: 20rem;
-  height: 4vh;
+  height: 5vh;
+}
+form button {
+  border: 0;
+  border-radius: 3px;
+  height: 6vh;
+  background-color: #77af9c;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+}
+form button:hover {
+  cursor: pointer;
+  color: var(--third-color);
+}
+.links {
+  text-decoration: none;
+}
+.register-button {
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
+  background-color: #f7e600;
+  color: white;
+  align-items:center;
+  justify-content:center;
+  display:flex;
+  font-size:18px;
+  font-weight:bold;
+  border:none;
+  text-decoration: none;
 }
 
 /* 로그아웃 컴포넌트 */

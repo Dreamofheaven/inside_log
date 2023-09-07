@@ -17,7 +17,6 @@ function LoginForm({ location, history }) {
 
   const userLogin = useSelector(state => state.userLogin)
   const { error, userInfo } = userLogin || {}
-  
 
   useEffect(() => {
     if (userInfo) {
@@ -33,16 +32,16 @@ function LoginForm({ location, history }) {
   }
 
   return (
-    <div className='form'>
-      {error && <Message variant='danger'>{error}</Message>}
+    <div className='loginForm'>
+      {error && <Message variant='danger'>아이디와 비밀번호를 확인하세요.</Message>}
 
       <form onSubmit={submitHandler}>
         <input type="email" placeholder='Enter Email' value={email} onChange={(e) => setEmail(e.target.value)} />
         <input type="password" placeholder='Enter Password' value={password} onChange={(e) => setPassword(e.target.value)} />
         <button type="submit">로그인</button>
       </form>
-      <Link to={'/register'}>
-        <p className='register'>회원가입</p>
+      <Link to={'/register'} className="links">
+        <div className='register-button'>회원가입</div>
       </Link>
     </div>
   )
