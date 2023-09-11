@@ -4,6 +4,8 @@ import {
     POST_DELETE_REQUEST, POST_DELETE_SUCCESS, POST_DELETE_FAIL,
     POST_CREATE_REQUEST, POST_CREATE_SUCCESS, POST_CREATE_FAIL, POST_CREATE_RESET,
     POST_UPDATE_REQUEST, POST_UPDATE_SUCCESS, POST_UPDATE_FAIL, POST_UPDATE_RESET,
+    REVIEW_LIST_REQUEST, REVIEW_LIST_SUCCESS, REVIEW_LIST_FAIL,
+    REVIEW_CREATE_REQUEST, REVIEW_CREATE_SUCCESS, REVIEW_CREATE_FAIL, REVIEW_CREATE_RESET,
 } from '../constants/postConstants'
 
 export const postListReducer = (state={posts:[]}, action)=> {
@@ -57,8 +59,6 @@ export const postDeleteReducer = (state = {}, action) => {
     }
 }
 
-
-
 export const postCreateReducer = (state = {}, action) => {
     switch (action.type) {
         case POST_CREATE_REQUEST:
@@ -91,6 +91,45 @@ export const postUpdateReducer = (state = { post: {} }, action) => {
 
         case POST_UPDATE_RESET:
             return { product: {} }
+
+        default:
+            return state
+    }
+}
+
+// 리뷰관련
+
+export const reviewListReducer = (state = {review:[]}, action) => {
+    switch (action.type){
+        case REVIEW_LIST_REQUEST:
+            return {loading: true, review:[]}
+        
+        case REVIEW_LIST_SUCCESS:
+            return {
+                loading:false, review: action.payload
+            } 
+        
+        case REVIEW_LIST_FAIL:
+            return {loading: false, error: action.payload}
+
+        default:
+            return state
+    }
+}
+
+export const reviewCreateReducer = (state = {}, action) => {
+    switch (action.type) {
+        case REVIEW_CREATE_REQUEST:
+            return { loading: true }
+
+        case REVIEW_CREATE_SUCCESS:
+            return { loading: false, success: true, review: action.payload }
+
+        case REVIEW_CREATE_FAIL:
+            return { loading: false, error: action.payload }
+
+        case REVIEW_CREATE_RESET:
+            return {}
 
         default:
             return state

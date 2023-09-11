@@ -1,62 +1,53 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-// import { useDispatch, useSelector } from 'react-redux'
-// import Message from '../components/Message'
-// import { listProductDetails, createProductReview } from '../actions/postAction'
-// import { PRODUCT_CREATE_REVIEW_RESET } from '../constants/postConstants'
+import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { FaArrowLeftLong } from 'react-icons/fa6'
 import { FaRegFaceGrin } from 'react-icons/fa6'
-import axios from 'axios'
+import { listReview } from '../../actions/postAction'
 import CreateReview from '../../components/CreateReview'
+import axios from 'axios'
 import './Detail.css'
 
 function Detail() {
   const { id } = useParams()
-  const [post, setPost] = useState(null)
-  const [review, setReview] = useState("")
-  const [buttonClickCount, setButtonClickCount] = useState(0); // 버튼 클릭 횟수를 저장
-  // const [buttonClicked, setButtonClicked] = useState(false)
   
-  //이게 실행되어요 !
-  // const handleButtonClick = () => {
-  //   console.log('눌렸다!!☆☆☆')
-  //   // 버튼 클릭 시 버튼 클릭 횟수를 증가시킴
-  //   setButtonClickCount((prevCount) => prevCount + 1);
-  // };
+  const dispatch = useDispatch()
 
-  const handleButtonClick = async() => {
+  const [post, setPost] = useState(null)
+
+  const reviewList = useSelector(state => state.reviewList.review) 
+
+  //삭제 버튼
+  const handleDelete=async()=>{
     try{
-      console.log('눌렸다!!☆☆☆')
-      // 버튼 클릭 시 버튼 클릭 횟수를 증가시킴
-      setButtonClickCount((prevCount) => prevCount + 1);
-      const response = await axios.get(`http://127.0.0.1:8000/posts/${id}/reviews/`);
-      const reviewData = response.data;
-      setReview(reviewData);
-    }catch(error){
-      console.error(error);
+      const response = await axios.delete(`http://127.0.0.1:8000/posts/delete/${id}/`)
+      console.log(response)
+      window.location.assign('/main') 
+    } catch (error){
+      console.error('리뷰 삭제 오류',error);
     }
-  };
+  }
+  const handleButtonClick = () => {
+    console.log('지피티 버튼을 눌렀습니다.')
+    dispatch(listReview(id)) 
+  }; 
 
   useEffect(() => {
-    async function fetchPostAndReview() {
+    async function fetchPost() {
       try {
-        const [postResponse, reviewResponse] = await Promise.all([
-          axios.get(`http://127.0.0.1:8000/posts/${id}/`),
-          axios.get(`http://127.0.0.1:8000/posts/${id}/reviews/`)
-        ])
+        const postResponse = await axios.get(`http://127.0.0.1:8000/posts/${id}/`)
         const postData = postResponse.data
-        const reviewData = reviewResponse.data
   
         setPost(postData)
-        setReview(reviewData)
+        dispatch(listReview(id)) 
       } catch (error) {
         console.log('detail에서 오류발생', error)
       }
     }
-    fetchPostAndReview()
+    fetchPost()
   
-  },[buttonClickCount]);
+  },[id]);
     
     if (!post) {
       return <div>해당 게시글을 찾을 수 없습니다.</div>
@@ -70,6 +61,7 @@ function Detail() {
         <FaArrowLeftLong className='back' />
       </Link>
       <div className='detail-page-box'>
+        <button className='delete-button' onClick={handleDelete}>Delete</button> {/* 삭제 버튼 */}
         <div className='detail-title'>
           <p>No. {post.id}</p>
           <h2>{post.title}</h2>
@@ -89,7 +81,8 @@ function Detail() {
         </div>
         <FaRegFaceGrin className='icon'/>
         <div className='detail-review'>
-          {review && review.length > 0 ? <p>{review[0].comment}</p> : <p>리뷰아직없음</p>}  
+          {/* {reviews && reviews.length > 0 ? <p>{reviews[0].comment}</p> : <p>리뷰아직없음</p>}   */}
+          {reviewList && reviewList.length > 0 ? <p>{reviewList[0].comment}</p> : <p>리뷰아직없음</p>}  
         </div>
       </div>
     </div>
@@ -100,3 +93,40 @@ export default Detail
 
 
 
+
+// 코드 임시저장
+
+// const handleButtonClick = async() => {
+//   try{
+//     console.log('눌렸다!!☆☆☆')
+//     // 버튼 클릭 시 버튼 클릭 횟수를 증가시킴
+//     setButtonClickCount((prevCount) => prevCount + 1);
+//     const response = await axios.get(`http://127.0.0.1:8000/posts/${id}/reviews/`);
+//     const reviewData = response.data;
+//     setReview(reviewData);
+//   }catch(error){
+//     console.error(error);
+//   }
+// };
+
+
+// useEffect(() => {
+//   console.log('디테일 페이지가 실행되었습니다.')
+//   async function fetchPostAndReview() {
+//     try {
+//       const [postResponse, reviewResponse] = await Promise.all([
+//         axios.get(`http://127.0.0.1:8000/posts/${id}/`),
+//         axios.get(`http://127.0.0.1:8000/posts/${id}/reviews/`)
+//       ])
+//       const postData = postResponse.data
+//       const reviewData = reviewResponse.data
+
+//       setPost(postData)
+//       setReview(reviewData)
+//     } catch (error) {
+//       console.log('detail에서 오류발생', error)
+//     }
+//   }
+//   fetchPostAndReview()
+
+// },[buttonClickCount]);

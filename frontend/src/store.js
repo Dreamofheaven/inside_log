@@ -10,7 +10,7 @@ import { userDeleteReducer } from './reducers/userReducers';
 import { userUpdateReducer } from './reducers/userReducers'; 
 
 import {postListReducer, postDetailReducer, postDeleteReducer,
-postCreateReducer, postUpdateReducer, } from './reducers/postReducers' 
+postCreateReducer, postUpdateReducer, reviewListReducer, reviewCreateReducer} from './reducers/postReducers' 
  
 
 const rootReducer = combineReducers({
@@ -19,12 +19,15 @@ const rootReducer = combineReducers({
     postDelete: postDeleteReducer,
     postCreate: postCreateReducer,
     postUpdate: postUpdateReducer,
+
+    reviewList: reviewListReducer,
+    reviewCreate: reviewCreateReducer,
     
     userLogin: userLoginReducer,
     register: userRegisterReducer,
     details: userDetailsReducer,
-    delete:userDeleteReducer,
-    update:userUpdateReducer,
+    delete: userDeleteReducer,
+    update: userUpdateReducer,
 });
 
 const userInfoFromStorage = localStorage.getItem('userInfo') ?

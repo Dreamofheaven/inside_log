@@ -144,9 +144,8 @@ def updatePosts(request, pk):
     serializer = PostSerializer(post, many=False)
     return Response(serializer.data)
 
-
+# @permission_classes([IsAdminUser])
 @api_view(['DELETE'])
-@permission_classes([IsAdminUser])
 def deletePosts(request, pk):
     post=Post.objects.get(id=pk)
     post.delete()
