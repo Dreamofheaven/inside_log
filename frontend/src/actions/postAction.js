@@ -6,6 +6,8 @@ import {
     POST_DELETE_REQUEST, POST_DELETE_SUCCESS, POST_DELETE_FAIL,
     POST_CREATE_REQUEST, POST_CREATE_SUCCESS, POST_CREATE_FAIL, POST_CREATE_RESET,
     POST_UPDATE_REQUEST, POST_UPDATE_SUCCESS, POST_UPDATE_FAIL, POST_UPDATE_RESET,
+    REVIEW_LIST_REQUEST, REVIEW_LIST_SUCCESS, REVIEW_LIST_FAIL,
+    REVIEW_CREATE_REQUEST, REVIEW_CREATE_SUCCESS, REVIEW_CREATE_FAIL, REVIEW_CREATE_RESET,
 } from '../constants/postConstants'
 
 export const listPosts = (userLogin) => async (dispatch) => {
@@ -21,14 +23,15 @@ export const listPosts = (userLogin) => async (dispatch) => {
             }
         )
         dispatch({
-            type:POST_LIST_SUCCESS, payload: data
+            type: POST_LIST_SUCCESS, 
+            payload: data
         })
     } catch (error) {
         dispatch({
             type: POST_LIST_FAIL, 
             payload: error.response && error.response.data.detail
-            ? error.response.data.detail
-            : error.message,
+                ? error.response.data.detail
+                : error.message,
         })
     }
 }
@@ -106,8 +109,6 @@ export const updateProduct = (product) => async (dispatch, getState) => {
             type: POST_DETAILS_SUCCESS,
             payload: data
         })
-
-
     } catch (error) {
         dispatch({
             type: POST_UPDATE_FAIL,
@@ -115,5 +116,50 @@ export const updateProduct = (product) => async (dispatch, getState) => {
                 ? error.response.data.detail
                 : error.message,
         })
+    }
+}
+
+// 리뷰 관련
+export const listReview = (id) => async (dispatch) => {
+    try {
+        dispatch({type: REVIEW_LIST_REQUEST})
+
+        console.log(id)
+        const { data } = await axios.get(`http://127.0.0.1:8000/posts/${id}/reviews/`) 
+
+        console.log('리뷰값을 받아오고 있어요.' + data)
+        console.log(data) //이건 잘 실행됨
+
+        dispatch({
+            type: REVIEW_LIST_SUCCESS, 
+            payload: data
+        })
+    } catch (error) { 
+        dispatch({
+            type: REVIEW_LIST_FAIL, 
+            payload: error.response && error.response.data.detail
+                ? error.response.data.detail
+                : error.message,
+        })
+    }
+}
+
+export const reviewCreate = (id) => async (dispatch) => {
+    try {
+        dispatch({type: REVIEW_CREATE_REQUEST})
+
+        const { data } =  await axios.post(`http://127.0.0.1:8000/posts/${id}/reviews/create/`,{})
+        dispatch = ({
+            type: REVIEW_CREATE_SUCCESS,
+            payload: data,
+        })
+    } catch (error) {
+        dispatch({
+            type: REVIEW_CREATE_FAIL,
+            payload: error.response && error.response.data.detail
+                ? error.response.data.detail
+                : error.message,
+        })
+
     }
 }
