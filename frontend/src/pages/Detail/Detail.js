@@ -17,6 +17,8 @@ function Detail() {
   const [post, setPost] = useState(null)
 
   const reviewList = useSelector(state => state.reviewList.review) 
+  console.log(reviewList)
+  console.log('몇번 실행이 되는가??')
 
   //삭제 버튼
   const handleDelete=async()=>{
@@ -30,7 +32,7 @@ function Detail() {
   }
   const handleButtonClick = () => {
     console.log('지피티 버튼을 눌렀습니다.')
-    dispatch(listReview(id)) 
+    dispatch(listReview(id))  
   }; 
 
   useEffect(() => {
@@ -40,14 +42,20 @@ function Detail() {
         const postData = postResponse.data
   
         setPost(postData)
-        dispatch(listReview(id)) 
+        dispatch(listReview(id))
+
+        console.log("으애애애애애애애앵") //2번 실행
+        // console.log(reviewList) //이거 없음 => 해결 포인트 1
+        console.log("뭔데",id)
+        console.log("하하하하하하 끝!!!!!")
       } catch (error) {
         console.log('detail에서 오류발생', error)
       }
     }
     fetchPost()
-  
-  },[id]);
+    // console.log(reviewList) 
+    console.log("뭔데",id)
+  },[id])
     
     if (!post) {
       return <div>해당 게시글을 찾을 수 없습니다.</div>
