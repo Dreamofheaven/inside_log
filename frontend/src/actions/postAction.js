@@ -124,11 +124,11 @@ export const listReview = (id) => async (dispatch) => {
     try {
         dispatch({type: REVIEW_LIST_REQUEST})
 
-        console.log(id)
+        // console.log(id)  => 24
         const { data } = await axios.get(`http://127.0.0.1:8000/posts/${id}/reviews/`) 
 
-        console.log('리뷰값을 받아오고 있어요.' + data)
-        console.log(data) //이건 잘 실행됨
+        // console.log('리뷰값을 받아오고 있어요.' + data)
+        // console.log(data) //이건 잘 실행됨
 
         dispatch({
             type: REVIEW_LIST_SUCCESS, 
