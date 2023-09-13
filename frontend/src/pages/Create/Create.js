@@ -1,28 +1,17 @@
 import React, { useState, useEffect } from 'react'
 import { FaArrowLeftLong } from 'react-icons/fa6'
 import { Link } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import axios from 'axios'
-// import Message from '../components/Message'
-// import { createProduct } from '../actions/productActions'
-// import { POST_CREATE_RESET } from '../constants/postConstants'
 
 import './Create.css'
 
 
 function Create() {
-  // const dispatch = useDispatch()
-
-  // const postCreate = useSelector(state => state.postCreate)
-  //   const { error: errorCreate, success: successCreate, post: createdPost } = postCreate
-
   const userLogin = useSelector(state => {return state.userLogin.userInfo})
-  // console.log(userLogin)
 
   const [title, setTitle] = useState('')
   const [body, setBody] = useState('')
-
-  // const dispatch = useDispatch()
 
   const createPostHandler = async (e) => {
     e.preventDefault()
@@ -44,7 +33,6 @@ function Create() {
       window.location.assign('/main')
     } catch (error) {
       console.log('에러가 발생하였습니다.', error)
-      // console.log(userLogin.userInfo.token)
     }
   }
 

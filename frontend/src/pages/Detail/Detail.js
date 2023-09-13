@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { FaArrowLeftLong } from 'react-icons/fa6'
 import { FaRegFaceGrin } from 'react-icons/fa6'
+import { IoTrashOutline } from "react-icons/io5";
 import { listReview } from '../../actions/postAction'
 import CreateReview from '../../components/CreateReview'
 import axios from 'axios'
@@ -17,8 +18,8 @@ function Detail() {
   const [post, setPost] = useState(null)
 
   const reviewList = useSelector(state => state.reviewList.review) 
-  console.log(reviewList)
-  console.log('몇번 실행이 되는가??')
+  // console.log(reviewList)
+  // console.log('몇번 실행이 되는가??')
 
   //삭제 버튼
   const handleDelete=async()=>{
@@ -32,8 +33,12 @@ function Detail() {
   }
   const handleButtonClick = () => {
     console.log('지피티 버튼을 눌렀습니다.')
-    dispatch(listReview(id))  
-  }; 
+    dispatch(listReview(id)) 
+    setTimeout(()=> {
+      window.location.assign(`/loading?id=${id}`)
+    },); //바로 로딩화면으로
+    // window.location.assign(`/post/${id}/`)
+    }; 
 
   useEffect(() => {
     async function fetchPost() {
@@ -65,11 +70,13 @@ function Detail() {
 
   return (
     <div className='detail-page'>
-      <Link to='/main'>
-        <FaArrowLeftLong className='back' />
-      </Link>
+      <div className='detail-page-box2'>
+        <Link to='/main'>
+          <FaArrowLeftLong className='back' />
+        </Link>
+        <IoTrashOutline className='delete-button' onClick={handleDelete} />
+      </div>
       <div className='detail-page-box'>
-        <button className='delete-button' onClick={handleDelete}>Delete</button> {/* 삭제 버튼 */}
         <div className='detail-title'>
           <p>No. {post.id}</p>
           <h2>{post.title}</h2>
@@ -103,38 +110,3 @@ export default Detail
 
 
 // 코드 임시저장
-
-// const handleButtonClick = async() => {
-//   try{
-//     console.log('눌렸다!!☆☆☆')
-//     // 버튼 클릭 시 버튼 클릭 횟수를 증가시킴
-//     setButtonClickCount((prevCount) => prevCount + 1);
-//     const response = await axios.get(`http://127.0.0.1:8000/posts/${id}/reviews/`);
-//     const reviewData = response.data;
-//     setReview(reviewData);
-//   }catch(error){
-//     console.error(error);
-//   }
-// };
-
-
-// useEffect(() => {
-//   console.log('디테일 페이지가 실행되었습니다.')
-//   async function fetchPostAndReview() {
-//     try {
-//       const [postResponse, reviewResponse] = await Promise.all([
-//         axios.get(`http://127.0.0.1:8000/posts/${id}/`),
-//         axios.get(`http://127.0.0.1:8000/posts/${id}/reviews/`)
-//       ])
-//       const postData = postResponse.data
-//       const reviewData = reviewResponse.data
-
-//       setPost(postData)
-//       setReview(reviewData)
-//     } catch (error) {
-//       console.log('detail에서 오류발생', error)
-//     }
-//   }
-//   fetchPostAndReview()
-
-// },[buttonClickCount]);

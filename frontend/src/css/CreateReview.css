@@ -14,3 +14,9 @@
     text-align :center;
     font-size:1.5vh;
 }
+
+.gptButton button:hover {
+    cursor: pointer;
+    background-color: #71d2b2;
+
+}

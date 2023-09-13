@@ -2,22 +2,35 @@
 @import url('https://fonts.googleapis.com/css2?family=Gasoek+One&family=Nanum+Gothic&family=Orbit&display=swap');
 
 .delete-button {
-  position: absolute;
+  /* position: absolute; */
   top: 10px; /* 원하는 높이 조절 */
   right: 10px; /* 원하는 위치 조절 */
+  font-size: 5vw;
 }
+.delete-button:hover {
+  cursor: pointer;
+  color: var(--title-color);
+}
+
 .detail-page {
   display: grid;
   justify-content: center;
   padding-top: 5vh;
 }
+
 .detail-page-box {
   background-color: ivory;
   border-radius: 10px;
-  width: 80vh;
+  width: 80vw;
   height: 75vh;
   text-align: center;
   padding: 25px;
+}
+
+.detail-page-box2{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
 }
 
 /* 페이지 번호 */
@@ -27,14 +40,12 @@
 }
 /* 제목 */
 .detail-title h2 {
-  /* font-size: 28px; */
   font-size: 4vh;
   font-weight: bold;
   font-family: 'Orbit', sans-serif;
 }
 /* 날짜 */
 .date {
-  /* font-size: 15px; */
   font-size: 1.5vh;
   font-family: 'Gasoek One', sans-serif;
 }
@@ -55,7 +66,6 @@
   max-width: calc(100% - 70px);
   padding: 10px;
   margin-top: 9vh;
-  /* font-size: 13px; */
   font-size: 1.5vh;
   border-radius: 10px;
 
@@ -80,6 +90,3 @@
   content: "◀";
   color: #d0dec7;
 }
-
-
-/* 반응형 */

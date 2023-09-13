@@ -81,7 +81,9 @@ def getPostsReview(request,pk):
 @api_view(['POST'])
 def createPostsReview(request,pk):
     post=Post.objects.get(id=pk)
-    comment=completion(post.body) # 이게 chatgpt답변 
+    comment=completion(f"{post.body}. 답변은 한글로 말해줘.") # 이게 chatgpt답변 
+    # comment=completion(post.body) # 이게 chatgpt답변 
+
     # user=request.user
     data=request.data
     now=datetime.now()

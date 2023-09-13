@@ -7,6 +7,7 @@ import './App.css';
 import Register from './pages/Register/Register';
 import Footer from './components/Footer';
 import Detail from './pages/Detail/Detail'
+import LoadingPage from './pages/LoadingPage/LoadingPage';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path='/main' element={<Main />} />
         <Route path='/create' element={<Create />} />
         <Route path='/posts/:id' element={<Detail />} />
+        <Route path='/loading' element={<LoadingPage />} />
       </Routes>
       <Footer/>
     </div>
