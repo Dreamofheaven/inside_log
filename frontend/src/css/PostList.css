@@ -3,12 +3,12 @@
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
+  height: 13vh;
   
   display: grid;
   text-align: center;
-  height: 13vh;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 5px 5px 5px; 
+  /* grid-template-columns: 1fr 1fr;
+  grid-template-rows: 5px 5px 5px;  */
   position: relative;
 }
 
@@ -20,7 +20,7 @@
   transform: translate(-50%, -50%); /* 중앙 정렬 */
   z-index: 1; /* 텍스트가 이미지 위에 표시되도록 z-index 설정 */
   color: white;
-
+  font-family: 'Poor Story', sans-serif;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
