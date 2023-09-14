@@ -17,16 +17,20 @@ function Main({}) {
 
   // const { loading, error, posts, pages, page } = postList
   const { posts, error } = postList
-  const generateRandomPosition=()=>({
-    x: `${Math.random() *100}%`,
-    y: `${Math.random() *100}%`,
-  })
 
   useEffect(() => {
     dispatch(listPosts(userLogin))
   }, [userLogin, dispatch])
 
+  //무작위 위치 생성
+  const generateRandomPosition = () => ({
+    x: Math.floor(Math.random() * 80 + 10),
+    y: Math.floor(Math.random() * 60 + 10),
+  });
+  // 초기 10개 위치 생성
   const initialApplePositions=Array.from({length:10},() => generateRandomPosition())
+
+  console.log(initialApplePositions)
   
   return (
     <main className='main-wrap'>      
@@ -37,9 +41,9 @@ function Main({}) {
       <Link to='/create'>
         <IoMdAddCircle className='create-post' />
       </Link>
-      <Tree appelPositions={initialApplePositions} />
+      <Tree applePositions={initialApplePositions} /> {/* 나무 사과 위치 */}
       <div className='posts-wrap'>
-        {posts && posts.map(post => (
+        {posts && posts.map((post) => (
           <PostList key={post.id} post={post} />
         ))}
       </div>

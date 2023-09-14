@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Dongle:wght@300&family=Gasoek+One&family=Nanum+Gothic&family=Orbit&family=Righteous&display=swap');
 .gptButton {
     width: 100%;
     height: 90%;
@@ -10,9 +11,13 @@
     font-weight: bold;
     border: 0;
     border-radius: 10px;
-    padding: 2vh;
+    padding: 1vh;
     text-align :center;
-    font-size:1.5vh;
+    font-size:2.5vh;
+    font-family: 'Dongle', sans-serif;
+
+
+    margin-top: 5vh;
 }
 
 .gptButton button:hover {

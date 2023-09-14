@@ -6,6 +6,10 @@
   font-style: normal;
 }
 
+@import url('https://fonts.googleapis.com/css2?family=Gasoek+One&family=Nanum+Gothic&family=Orbit&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Poor+Story:400');
+@import url('https://fonts.googleapis.com/css2?family=Righteous&display=swap');
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',

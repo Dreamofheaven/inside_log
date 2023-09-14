@@ -37,8 +37,6 @@
   grid-template-columns: 1fr 1fr 1fr; 
   grid-template-rows: auto auto auto; 
   gap: 10px;
-
-  /* 가운데 정렬을 위한 추가 속성 */
   left: 50%;
   transform: translateX(-50%);
 }
