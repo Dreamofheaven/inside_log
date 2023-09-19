@@ -1,5 +1,3 @@
-/* 글꼴 */
-@import url('https://fonts.googleapis.com/css2?family=Gasoek+One&family=Nanum+Gothic&family=Orbit&display=swap');
 
 .delete-button {
   /* position: absolute; */
@@ -34,24 +32,30 @@
 }
 
 /* 페이지 번호 */
-.detail-title p {
-  font-family: 'Nanum Gothic', sans-serif;
+.detail-title .num {
+  /* font-family: 'Nanum Gothic', sans-serif; */
+  font-family: 'Righteous', cursive;
   font-size:2vh;
 }
 /* 제목 */
 .detail-title h2 {
   font-size: 4vh;
-  font-weight: bold;
-  font-family: 'Orbit', sans-serif;
+  /* font-family: 'Gasoek One', sans-serif; */
+  font-family: 'Poor Story', sans-serif;
+  color: var(--primary-color);
 }
 /* 날짜 */
-.date {
+.detail-title .date {
   font-size: 1.5vh;
-  font-family: 'Gasoek One', sans-serif;
+  font-family: 'Righteous', cursive; 
+  font-weight: bold;
+  color: var(--title-color);
+
 }
 /* 내용 */
 .detail-body p{
   font-size: 2.5vh;
+  font-weight: bold;
   font-family: 'Orbit', sans-serif;
 }
 
@@ -65,7 +69,8 @@
   display: inline-block;
   max-width: calc(100% - 70px);
   padding: 10px;
-  margin-top: 9vh;
+  margin-top: 3vh;
+
   font-size: 1.5vh;
   border-radius: 10px;
 
@@ -73,9 +78,13 @@
   background-color: #d0dec7;
 
   /* 높이 제한 및 스크롤 */
-  height: 15vh;
+  height: 20vh;
   overflow: auto;
 }
+.detail-review p {
+  font-family: 'Orbit', sans-serif;
+}
+
 .icon {
   font-size: 30px;
   color: #7A9D54;

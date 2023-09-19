@@ -1,6 +1,17 @@
 .tree {
+  position: relative;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.apple-container {
+  position: absolute;
+  z-index:1;
+}
+/* .tree {
   position: fixed;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
-}
+  transform: translate(-50%, -50%); */
+/* } */

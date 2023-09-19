@@ -78,7 +78,7 @@ function Detail() {
       </div>
       <div className='detail-page-box'>
         <div className='detail-title'>
-          <p>No. {post.id}</p>
+          <p className="num">No. {post.id}</p>
           <h2>{post.title}</h2>
           <p className='date'>{created_at}</p>
         </div>
