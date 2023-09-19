@@ -3,7 +3,7 @@ from django.shortcuts import render
 from rest_framework.decorators import api_view,permission_classes
 from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from rest_framework.response import Response
-from django.core.paginator import Paginator, EmptyPage
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from base.models import Post, Review
 from base.serializers import PostSerializer, ReviewSerializer
@@ -30,22 +30,28 @@ def completion(word):
 @api_view(['GET'])
 # @permission_classes([IsAuthenticated])
 def getPosts(request):
-    print(request.data)
+    # print(request.data)
     query = request.query_params.get('keyword')
     if query == None:
         query = ''
-    print("query : ", query)
+    # print("query : ", query)
     posts = Post.objects.filter(user_id=request.user, title__icontains=query)
     
     # 5개의 post를 한 페이지로 설정(개수는 나중에 프론트에서 보고 다시 설정)
-    page = request.query_params.get('page', 1)
-    paginator = Paginator(posts, 20)
+    page = request.query_params.get('page')
+    paginator = Paginator(posts, 6)
 
     try:
         posts = paginator.page(page)
+    except PageNotAnInteger:
+        posts = paginator.page(1)
     except EmptyPage:
         posts = paginator.page(paginator.num_pages)
 
+    if page == None:
+        page = 1
+
+    page = int(page)
     serializer = PostSerializer(posts, many=True) 
     return Response({'posts': serializer.data, 'page': page, 'pages': paginator.num_pages})
 
