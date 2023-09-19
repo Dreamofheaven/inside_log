@@ -8,6 +8,10 @@ import './Create.css'
 
 
 function Create() {
+  const token=sessionStorage.getItem('userInfo')
+  if (!token){
+      window.location.href='/';
+  }
   const userLogin = useSelector(state => {return state.userLogin.userInfo})
 
   const [title, setTitle] = useState('')

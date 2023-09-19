@@ -11,6 +11,10 @@ import axios from 'axios'
 import './Detail.css'
 
 function Detail() {
+  const token=sessionStorage.getItem('userInfo')
+  if (!token){
+      window.location.href='/';
+  }
   const { id } = useParams()
   
   const dispatch = useDispatch()
