@@ -10,11 +10,12 @@ import {
     REVIEW_CREATE_REQUEST, REVIEW_CREATE_SUCCESS, REVIEW_CREATE_FAIL, REVIEW_CREATE_RESET,
 } from '../constants/postConstants'
 
-export const listPosts = (userLogin) => async (dispatch) => {
+export const listPosts = (keyword = '', userLogin) => async (dispatch) => {
     try {
         dispatch({type: POST_LIST_REQUEST})
 
-        const{data}=await axios.get('http://127.0.0.1:8000/posts/',
+        // const{data}=await axios.get('http://127.0.0.1:8000/posts/',
+        const{data}=await axios.get(`http://127.0.0.1:8000/posts${keyword}/`,
             {
                 headers: {
                     'Content-type': 'application/json',
@@ -37,43 +38,44 @@ export const listPosts = (userLogin) => async (dispatch) => {
 }
 
 
-export const createProduct = () => async (dispatch, getState) => {
-    try {
-        dispatch({
-            type: POST_CREATE_REQUEST
-        })
+// export const createProduct = () => async (dispatch, getState) => {
+//     try {
+//         dispatch({
+//             type: POST_CREATE_REQUEST
+//         })
 
-        const {
-            userLogin: { userInfo },
-        } = getState()
+//         const {
+//             userLogin: { userInfo },
+//         } = getState()
 
-        const config = {
-            headers: {
-                'Content-type': 'application/json',
-                Authorization: `Bearer ${userInfo.token}`
-            }
-        }
+        
+//         const config = {
+//             headers: {
+//                 'Content-type': 'application/json',
+//                 Authorization: `Bearer ${userInfo.token}`
+//             }
+//         }
 
-        const { data } = await axios.post(
-            `/api/products/create/`,
-            {},
-            config
-        )
-        dispatch({
-            type: POST_CREATE_SUCCESS,
-            payload: data,
-        })
+//         const { data } = await axios.post(
+//             `/api/products/create/`,
+//             {},
+//             config
+//         )
+//         dispatch({
+//             type: POST_CREATE_SUCCESS,
+//             payload: data,
+//         })
 
 
-    } catch (error) {
-        dispatch({
-            type: POST_CREATE_FAIL,
-            payload: error.response && error.response.data.detail
-                ? error.response.data.detail
-                : error.message,
-        })
-    }
-}
+//     } catch (error) {
+//         dispatch({
+//             type: POST_CREATE_FAIL,
+//             payload: error.response && error.response.data.detail
+//                 ? error.response.data.detail
+//                 : error.message,
+//         })
+//     }
+// }
 
 
 

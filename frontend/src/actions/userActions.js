@@ -26,7 +26,7 @@ export const login = (email, password) => async (dispatch) => {
             type: USER_LOGIN_SUCCESS,
             payload: data
         })
-        localStorage.setItem('userInfo',JSON.stringify(data))
+        sessionStorage.setItem('userInfo',JSON.stringify(data)) //수정0920
         
         console.log('로그인 성공!!🚀')
         window.location.assign('/main')
@@ -41,7 +41,7 @@ export const login = (email, password) => async (dispatch) => {
     }
 }
 export const logout=()=>(dispatch)=>{
-    localStorage.removeItem('userInfo')
+    sessionStorage.removeItem('userInfo') //수정0920
     dispatch({type:USER_LOGOUT})
     dispatch({type:USER_DETAILS_RESET})
     window.location.replace('/')
