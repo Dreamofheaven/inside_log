@@ -27,7 +27,7 @@ function Tree() {
   }
   return (
     <div className='tree'>
-      <img src='/images/real-tree.png'></img>
+      <img className='trees' src='/images/real-tree.png'></img>
     </div>
   )
 }

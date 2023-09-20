@@ -48,7 +48,7 @@ form button:hover {
 /* 로그아웃 컴포넌트 */
 .logOut {
   position: fixed;
-  left: 75%;
+  left: 65vw;
 }
 .logOut button {
   /* text-align: center; */
@@ -60,4 +60,16 @@ form button:hover {
   color: white;
   font-size: 3vh;
   font-weight: bold;
+}
+
+
+@media (max-width: 920px) {
+  .logOut {
+    left: 72vw;
+  }
+}
+@media (max-width: 420px) {
+  .logOut {
+    left: 65vw;
+  }
 }
