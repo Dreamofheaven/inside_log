@@ -26,34 +26,46 @@ def completion(word):
     return response['choices'][0]['message']['content'].strip()
 
 
+# @api_view(['GET'])
+# # @permission_classes([IsAuthenticated])
+# def getPosts(request):
+#     # print(request.data)
+#     query = request.query_params.get('keyword')
+#     if query == None:
+#         query = ''
+#     # print("query : ", query)
+#     posts = Post.objects.filter(user_id=request.user, title__icontains=query)
+    
+#     # 5개의 post를 한 페이지로 설정(개수는 나중에 프론트에서 보고 다시 설정)
+#     page = request.query_params.get('page')
+#     paginator = Paginator(posts, 6)
+
+#     try:
+#         posts = paginator.page(page)
+#     except PageNotAnInteger:
+#         posts = paginator.page(1)
+#     except EmptyPage:
+#         posts = paginator.page(paginator.num_pages)
+
+#     if page == None:
+#         page = 1
+
+#     page = int(page)
+#     serializer = PostSerializer(posts, many=True) 
+#     return Response({'posts': serializer.data, 'page': page, 'pages': paginator.num_pages})
+
 
 @api_view(['GET'])
 # @permission_classes([IsAuthenticated])
 def getPosts(request):
-    # print(request.data)
     query = request.query_params.get('keyword')
     if query == None:
         query = ''
-    # print("query : ", query)
+
     posts = Post.objects.filter(user_id=request.user, title__icontains=query)
     
-    # 5개의 post를 한 페이지로 설정(개수는 나중에 프론트에서 보고 다시 설정)
-    page = request.query_params.get('page')
-    paginator = Paginator(posts, 6)
-
-    try:
-        posts = paginator.page(page)
-    except PageNotAnInteger:
-        posts = paginator.page(1)
-    except EmptyPage:
-        posts = paginator.page(paginator.num_pages)
-
-    if page == None:
-        page = 1
-
-    page = int(page)
     serializer = PostSerializer(posts, many=True) 
-    return Response({'posts': serializer.data, 'page': page, 'pages': paginator.num_pages})
+    return Response({'posts': serializer.data})
 
 
 @api_view(['POST'])

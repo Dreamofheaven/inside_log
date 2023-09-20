@@ -1,29 +1,22 @@
 import React from 'react'
-import { Pagination } from 'react-bootstrap'
-import { LinkContainer } from 'react-router-bootstrap'
+import Pagination from "react-js-pagination";
+import "../css/Paginate.css";
+// import { Pagination } from 'react-bootstrap'
+// import { LinkContainer } from 'react-router-bootstrap'
 
-function Paginate({ pages, page, keyword = '', isAdmin = false }) {
-
-  if (keyword) {
-    console.log(keyword)
-    keyword = keyword.split('?keyword=')[1].split('&')[0]
-    console.log(keyword)
-  }
-  return(pages > 1 && (
-  <Pagination>
-    {[...Array(pages).keys()].map((x) => (
-      <LinkContainer
-        key={x + 1}
-        to={{
-          pathname: '/main',
-          search: `?keyword=${keyword}&page=${x + 1}`,
-        }}
-      >
-        <Pagination.Item active={x + 1 === page}>{x + 1}</Pagination.Item>
-      </LinkContainer>
-    ))}
-  </Pagination> 
-    )
+function Paginate({ page, count, setPage }) {
+  return(
+    <div>
+      <Pagination
+        activePage={page}
+        itemsCountPerPage={5}
+        totalItemsCount={count}
+        pageRangeDisplayed={5}
+        prevPageText={"<"}
+        nextPageText={">"}
+        onChange={setPage}
+      />
+    </div>
   )
 }
 

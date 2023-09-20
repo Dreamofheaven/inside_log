@@ -10,12 +10,12 @@ import {
     REVIEW_CREATE_REQUEST, REVIEW_CREATE_SUCCESS, REVIEW_CREATE_FAIL, REVIEW_CREATE_RESET,
 } from '../constants/postConstants'
 
-export const listPosts = (keyword = '', userLogin) => async (dispatch) => {
+export const listPosts = (userLogin) => async (dispatch) => {
     try {
         dispatch({type: POST_LIST_REQUEST})
 
         // const{data}=await axios.get('http://127.0.0.1:8000/posts/',
-        const{data}=await axios.get(`http://127.0.0.1:8000/posts${keyword}/`,
+        const{data}=await axios.get('http://127.0.0.1:8000/posts/',
             {
                 headers: {
                     'Content-type': 'application/json',

@@ -15,3 +15,7 @@
   left: 50%;
   transform: translate(-50%, -50%);
  }
+.trees {
+  width: 55vh; /* 원하는 너비로 설정 */
+  height: 70vh; 
+}

@@ -54,7 +54,7 @@
 
 // export default Main
 
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { IoMdAddCircle } from "react-icons/io";
 import { useSelector, useDispatch } from 'react-redux'
@@ -64,7 +64,6 @@ import Tree from '../../components/Tree'
 import PostList from '../../components/PostList'
 import Logout from '../../components/Logout';
 import Paginate from '../../components/Paginate';
-import { useLocation } from 'react-router-dom';
 import './Main.css'
 
 function Main({}) { 
@@ -72,28 +71,42 @@ function Main({}) {
   if (!token){
       window.location.href='/';
   }
-  console.log(token)
+
   const dispatch = useDispatch()
   const postList = useSelector(state => state.postList)
 
   const userLogin = useSelector(state => {return state.userLogin.userInfo})
-  const location = useLocation()
-  // const queryParams = new URLSearchParams(location.search)
-  const keyword = location.search
+  const { loading, error, posts } = postList
 
-  console.log(keyword)
-
-  const { loading, error, posts, pages, page } = postList
-
-  // console.log(postList)
   useEffect(() => {
-    dispatch(listPosts(keyword, userLogin))
-  }, [userLogin, keyword])
+    dispatch(listPosts(userLogin))
 
-  // const handlePageChange = (selectedPage) => {
-  //   // 페이지 변경 핸들러
-  //   setData({ ...data, page: selectedPage.selected + 1 });
-  // };
+    // setCount(posts.length)
+    // setIndexOfLastPost(currentPage * postPerPage)
+    // setIndexOfFirstPost(indexOfLastPost - postPerPage)
+    // setCurrentPosts(posts.slice(indexOfFirstPost, indexOfLastPost))
+  }, [userLogin])
+
+
+  // 페이지 네이션 관련 코드
+  const [count, setCount] = useState(0); // 아이템 총 개수
+  const [currentPage, setCurrentPage] = useState(1); // 현재 페이지. default 값으로 1
+  const [postPerPage] = useState(6); // 한 페이지에 보여질 아이템 수 
+  const [indexOfLastPost, setIndexOfLastPost] = useState(0); // 현재 페이지의 마지막 아이템 인덱스
+  const [indexOfFirstPost, setIndexOfFirstPost] = useState(0); // 현재 페이지의 첫번째 아이템 인덱스
+  const [currentPosts, setCurrentPosts] = useState(0); // 현재 페이지에서 보여지는 아이템들
+
+  console.log(postList)
+  useEffect(() => {
+    setCount(posts.length)
+    setIndexOfLastPost(currentPage * postPerPage)
+    setIndexOfFirstPost(indexOfLastPost - postPerPage)
+    setCurrentPosts(posts.slice(indexOfFirstPost, indexOfLastPost))
+  },[currentPage, indexOfLastPost, indexOfFirstPost, postPerPage, posts])
+
+  const setPage = (error) => {
+    setCurrentPage(error);
+  };
 
   return (
     <main className='main-wrap'>      
@@ -104,22 +117,28 @@ function Main({}) {
       <Link to='/create'>
         <IoMdAddCircle className='create-post' />
       </Link>
-      <Tree/>
+      <Tree />
       <div className='posts-wrap'>
-        {posts && posts.map(post => (
+        {/* {posts && posts.map(post => (
           <PostList key={post.id} post={post} />
+        ))} */}
+
+        {currentPosts && currentPosts.map(post => (
+          <PostList key={post.id} post={post}/>
         ))}
+
+{/* 
+        {currentPosts && posts.length > 0 ? (
+          currentPosts.map((post) => {
+            <PostList key={post.id} post={post}/>
+          })
+        ) : (
+          <div>게시글이 없습니다..</div>
+        )} */}
       </div>
-
-      {/* 페이지네이션 컴포넌트 */}
-      {/* <ReactPaginate
-        pageCount={data.pages}
-        pageRangeDisplayed={5}
-        marginPagesDisplayed={2}
-        onPageChange={handlePageChange}
-      /> */}
-
-      <Paginate page={page} pages={pages} keyword={keyword}/>
+      <div className='paginate-wrap'>
+        <Paginate page={currentPage} count={count} setPage={setPage}/>
+      </div>
       <Footer/>
     </main>
   )
