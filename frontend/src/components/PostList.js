@@ -4,12 +4,22 @@ import { Link } from 'react-router-dom'
 
 function PostList({ post }) {
   return (
-    <Link to={`/posts/${post.id}`}>
-      <div className='PostList-box'>
-        <h4>{post.title}</h4>
-      </div>
-    </Link>
+    <div id="checks">
+          <div className='PostList-box'>
+            <Link id = 'check' to={`/posts/${post.id}`}></Link>
+          </div>
+            <p class="arrow_box">{post.title}</p>
+    </div>
   )
 }
 
 export default PostList
+
+
+
+// <div id="checks">
+// <div className='PostList-box'>
+//   <Link id = 'check' to={`/posts/${post.id}`}></Link>
+// </div>
+// <p class="arrow_box">{post.title}</p>
+// </div>
