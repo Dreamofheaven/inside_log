@@ -5,7 +5,6 @@ import { Oval } from "react-loader-spinner"
 function LoadingPage() {
     const searchParams = new URLSearchParams(window.location.search);
     const idFromURL = searchParams.get('id');
-    console.log(idFromURL)
     setTimeout(()=> {
     window.location.assign(`/posts/${idFromURL}`)
       },10000); 

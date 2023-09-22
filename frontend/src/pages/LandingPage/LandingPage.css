@@ -5,13 +5,9 @@
   top: 30%;
   position: fixed;
 }
-
-/* 제목로고 */
 .page-main h1 {
   font-size: 60px;
 }
-
-/* 로그인버튼 */
 .login-btn {
   width: 10rem;
   height: 3rem;

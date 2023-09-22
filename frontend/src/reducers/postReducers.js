@@ -97,8 +97,6 @@ export const postUpdateReducer = (state = { post: {} }, action) => {
     }
 }
 
-// 리뷰관련
-
 export const reviewListReducer = (state = {review:[]}, action) => {
     switch (action.type){
         case REVIEW_LIST_REQUEST:

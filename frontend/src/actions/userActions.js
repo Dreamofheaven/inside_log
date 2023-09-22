@@ -26,11 +26,8 @@ export const login = (email, password) => async (dispatch) => {
             type: USER_LOGIN_SUCCESS,
             payload: data
         })
-        sessionStorage.setItem('userInfo',JSON.stringify(data)) //수정0920
-        
-        console.log('로그인 성공!!🚀')
+        sessionStorage.setItem('userInfo',JSON.stringify(data)) 
         window.location.assign('/main')
-        // return redirect("/main")
     }catch(error){
         dispatch({
             type: USER_LOGIN_FAIL, 
@@ -41,13 +38,10 @@ export const login = (email, password) => async (dispatch) => {
     }
 }
 export const logout=()=>(dispatch)=>{
-    sessionStorage.removeItem('userInfo') //수정0920
+    sessionStorage.removeItem('userInfo') 
     dispatch({type:USER_LOGOUT})
     dispatch({type:USER_DETAILS_RESET})
     window.location.replace('/')
-    // window.location.assign('/')
-   
-
 }
 export const register = (name, email, password) => async (dispatch) => {
     try {
@@ -68,10 +62,8 @@ export const register = (name, email, password) => async (dispatch) => {
             type: USER_REGISTER_SUCCESS,
             payload: data
         })
-        console.log('회원가입 성공✈')
         window.location.assign('/')
     } catch(error){
-        // alert(error.response.data.detail)
         dispatch({
             type:USER_REGISTER_FAIL,
             payload: error.response && error.response.data.detail
@@ -91,11 +83,12 @@ export const deleteUser=(id) => async (dispatch, getState)=> {
         const config={
             headers: {
                 'Content-type':'application/json',
-                Authorization:'Bearer ${userInfo.token}'
-            }
-        }
+                Authorization:'Bearer ${userInfo.token}',
+            },
+        };
         const {data}=await axios.delete(
-            'http://localhost:8000/accounts/delete/${id}',
+            `http://localhost:8000/accounts/delete/${id}/`, 
+            // 'http://localhost:8000/accounts/delete/'+id+'/',
             config
         )
         dispatch({
@@ -126,7 +119,6 @@ export const updateUser = (user) => async (dispatch, getState)=>{
             }
         }
         const {data}=await axios.put(
-            // '/api/accounts/update/${user._id}/',
             'http://localhost:8000/accounts/update/${id}',
             user,
             config
@@ -147,4 +139,3 @@ export const updateUser = (user) => async (dispatch, getState)=>{
         })
     }
 }
-// USER_UPDATE_PROFILE_REQUEST, USER_UPDATE_PROFILE_SUCCESS, USER_UPDATE_PROFILE_FAIL, USER_UPDATE_PROFILE_RESET,

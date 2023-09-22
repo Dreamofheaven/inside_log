@@ -8,21 +8,16 @@ import { login } from '../actions/userActions';
 function LoginForm({ location, history }) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-
   const dispatch = useDispatch()
-
   const queryParams = new URLSearchParams(location?.search || ''); 
   const redirectParam = queryParams.get('redirect');
   const redirect = redirectParam || '/';
-
   const userLogin = useSelector(state => state.userLogin)
   const { error, userInfo } = userLogin || {}
 
   useEffect(() => {
     if (userInfo) {
-      console.log('이미 로그인이 된 상태입니다.')
       window.location.assign('/main')
-      // history.push(redirect)
     }
   }, [history, userInfo, redirect])
 

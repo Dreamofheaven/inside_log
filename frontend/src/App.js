@@ -1,4 +1,3 @@
-// import Footer from './components/Footer'
 import { Routes, Route, Link } from 'react-router-dom';
 import Main from './pages/Main/Main';
 import LandingPage from './pages/LandingPage/LandingPage';

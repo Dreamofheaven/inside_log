@@ -12,7 +12,6 @@ export const userLoginReducer = (state={},action)=>{
             return {loading: true}
 
         case USER_LOGIN_SUCCESS:
-            console.log('로그인 성고했고, 지금 리듀서 작동한다.')
             return {loading: false, userInfo: action.payload}
         
         case USER_LOGIN_FAIL:

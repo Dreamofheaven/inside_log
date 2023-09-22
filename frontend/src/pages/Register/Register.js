@@ -5,15 +5,12 @@ import './Register.css'
 import { register } from '../../actions/userActions'
 
 function Register({location, history}) {
-  // 여기가 javascript코드!
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword]=useState('')
   const [message, setMessage] = useState('')
-
   const dispatch = useDispatch()
-  
   const userRegister = useSelector(state => state.register)
   const {error, userInfo} = userRegister 
 
@@ -25,7 +22,6 @@ function Register({location, history}) {
 
   const submitHandler = (e) => {
     e.preventDefault()
-
     if (password != confirmPassword){
         setMessage('비밀번호가 일치하지 않습니다.')
     } else if (error){
@@ -35,13 +31,11 @@ function Register({location, history}) {
         dispatch(register(name, email, password))
     }
   }
-
   return (
     <div className='register-page'>
       <h1>회원가입</h1>
       {message && <Message variant={'danger'}>{message}</Message>}
       {error && <Message variant={'danger'}>{error}</Message>}
-      
       <form onSubmit={submitHandler}>
         <input required type="name" name="name" id="name" placeholder='이름' onChange={(e) => setName(e.target.value)} />
         <input required type="email" name="email" id="email" placeholder='이메일' onChange={(e) => setEmail(e.target.value)} />
@@ -52,5 +46,4 @@ function Register({location, history}) {
     </div>
   )
 }
-
 export default Register

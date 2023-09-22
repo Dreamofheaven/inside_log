@@ -7,7 +7,6 @@ urlpatterns = [
   path('<str:pk>/reviews/',views.getPostsReview, name='review'),
   path('<str:pk>/reviews/create/',views.createPostsReview, name='create-review'),
   path('<str:pk>/', views.getPost, name='post'),
-
   path('update/<str:pk>/', views.updatePosts, name='posts-update'),
   path('delete/<str:pk>/',views.deletePosts, name='posts-delete')
 ]

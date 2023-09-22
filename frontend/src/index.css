@@ -1,11 +1,9 @@
-/* font */
 @font-face {
   font-family: 'HS-Regular';
   src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/HS-Regular.woff') format('woff');
   font-weight: normal;
   font-style: normal;
 }
-
 @import url('https://fonts.googleapis.com/css2?family=Gasoek+One&family=Nanum+Gothic&family=Orbit&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Poor+Story:400');
 @import url('https://fonts.googleapis.com/css2?family=Righteous&display=swap');
@@ -29,9 +27,7 @@ code {
   --secondary-color: #7A9D54;
   --tertiary-color: #F2EE9D;
   --title-color: #8C3333;
-
   --h1-font-family: 'HS-Regular', sans-serif;
-
   --border-radius-size: 10px;
 }
 
