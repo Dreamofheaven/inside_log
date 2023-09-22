@@ -1,6 +1,5 @@
 import React from 'react'
 import '../css/Footer.css'
-// import pitch from '../../public/images/pitch.png'
 
 function Footer() {
   return (

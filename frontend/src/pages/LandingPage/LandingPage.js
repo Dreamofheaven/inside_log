@@ -6,11 +6,9 @@ import { useSelector, useDispatch } from 'react-redux';
 
 function LandingPage() { 
   const [showLoginForm, setShowLoginForm] = useState(false)
-
   const toggleLoginForm = () => { 
     setShowLoginForm(!showLoginForm);
   };
-
   return (
     <main className='page-wrap'>
       <div className='page-main'>  

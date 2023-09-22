@@ -16,32 +16,22 @@ function Detail() {
       window.location.href='/';
   }
   const { id } = useParams()
-  
   const dispatch = useDispatch()
-
   const [post, setPost] = useState(null)
-
   const reviewList = useSelector(state => state.reviewList.review) 
-  // console.log(reviewList)
-  // console.log('몇번 실행이 되는가??')
-
-  //삭제 버튼
   const handleDelete=async()=>{
     try{
       const response = await axios.delete(`http://127.0.0.1:8000/posts/delete/${id}/`)
-      console.log(response)
       window.location.assign('/main') 
     } catch (error){
       console.error('리뷰 삭제 오류',error);
     }
   }
   const handleButtonClick = () => {
-    console.log('지피티 버튼을 눌렀습니다.')
     dispatch(listReview(id)) 
     setTimeout(()=> {
       window.location.assign(`/loading?id=${id}`)
-    },); //바로 로딩화면으로
-    // window.location.assign(`/post/${id}/`)
+    },); 
     }; 
 
   useEffect(() => {
@@ -49,29 +39,15 @@ function Detail() {
       try {
         const postResponse = await axios.get(`http://127.0.0.1:8000/posts/${id}/`)
         const postData = postResponse.data
-  
         setPost(postData)
         dispatch(listReview(id))
-
-        console.log("으애애애애애애애앵") //2번 실행
-        // console.log(reviewList) //이거 없음 => 해결 포인트 1
-        console.log("뭔데",id)
-        console.log("하하하하하하 끝!!!!!")
       } catch (error) {
-        console.log('detail에서 오류발생', error)
       }
-    }
-    fetchPost()
-    // console.log(reviewList) 
-    console.log("뭔데",id)
-  },[id])
-    
+    } fetchPost()},[id])
     if (!post) {
       return <div>해당 게시글을 찾을 수 없습니다.</div>
     }
-
   const created_at = `${post.created_at.split('T')[0]} ${post.created_at.split('T')[1].split(':')[0]}:${post.created_at.split('T')[1].split(':')[1]}`;
-
   return (
     <div className='detail-page'>
       <div className='detail-page-box2'>
@@ -100,7 +76,6 @@ function Detail() {
         </div>
         <FaRegFaceGrin className='icon'/>
         <div className='detail-review'>
-          {/* {reviews && reviews.length > 0 ? <p>{reviews[0].comment}</p> : <p>리뷰아직없음</p>}   */}
           {reviewList && reviewList.length > 0 ? <p>{reviewList[0].comment}</p> : <p>리뷰아직없음</p>}  
         </div>
       </div>
@@ -109,8 +84,3 @@ function Detail() {
 }
 
 export default Detail
-
-
-
-
-// 코드 임시저장

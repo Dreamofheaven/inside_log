@@ -1,19 +1,14 @@
-from django.shortcuts import render
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.response import Response
-
 from django.contrib.auth.models import User
 from base.serializers import UserSerializer, UserSerializerWithToken
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
-
 from django.contrib.auth.hashers import make_password
 from rest_framework import status
+from django.contrib.auth import logout
 
-from django.contrib.auth import logout # 로그아웃_0905
-
-#토큰 커스터마이징
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     def validate(self,attrs):
         data=super().validate(attrs)
@@ -25,7 +20,6 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     
 class MyTokenObtainPairView(TokenObtainPairView):
     serializer_class=MyTokenObtainPairSerializer
-
 
 @api_view(['POST'])
 def registerUser(request):
@@ -39,13 +33,10 @@ def registerUser(request):
             password=make_password(data['password'])
         )
         serializer = UserSerializerWithToken(user, many=False)
-       
         return Response(serializer.data)
     except:
-        print('회원가입 실패')
         message = {'detail': '해당 이메일의 사용자가 이미 존재합니다.'}
         return Response(message, status=status.HTTP_400_BAD_REQUEST)
-
 
 @api_view(['GET'])
 @permission_classes([IsAdminUser])
@@ -54,23 +45,19 @@ def getUserById(request,pk):
     serializer=UserSerializer(user, many=False)
     return Response(serializer.data)
 
-
 @api_view(['PUT'])
 @permission_classes([IsAuthenticated])
 def updateUser(request,pk):
     user=User.objects.get(id=pk)
     data=request.data
-
     user.username=data['username']
     user.save()
-
     serializer=UserSerializer(user, many=False)
     return Response(serializer.data)
 
-
 @api_view(['DELETE'])
-@permission_classes([IsAdminUser])
-def deleteUser(request,pk):
+@permission_classes([IsAuthenticated])
+def deleteUser(pk):
     userForDeletion=User.objects.get(id=pk)
     userForDeletion.delete()
     return Response('User was deleted')
