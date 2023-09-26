@@ -7,6 +7,7 @@ import Register from './pages/Register/Register';
 import Footer from './components/Footer';
 import Detail from './pages/Detail/Detail'
 import LoadingPage from './pages/LoadingPage/LoadingPage';
+import Update from './pages/Update/Update';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path='/create' element={<Create />} />
         <Route path='/posts/:id' element={<Detail />} />
         <Route path='/loading' element={<LoadingPage />} />
+        <Route path='/main/update/:id' element={<Update />} />
       </Routes>
       <Footer/>
     </div>

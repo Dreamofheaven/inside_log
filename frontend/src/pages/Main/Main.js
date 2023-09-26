@@ -7,7 +7,7 @@ import Footer from '../../components/Footer'
 import Tree from '../../components/Tree'
 import PostList from '../../components/PostList'
 import Paginate from '../../components/Paginate';
-import {logout, deleteUser} from '../../actions/userActions'
+import {logout, deleteUser, updateUser} from '../../actions/userActions'
 import './Main.css';
 
 function Main({}) { 
@@ -40,7 +40,10 @@ function Main({}) {
   const logOut = () => {
       dispatch(logout())
   };
-
+  // 업데이트
+  const update = () => {
+    dispatch(updateUser(userId))
+  };
   // 게시글 
   useEffect(() => {
     dispatch(listPosts(userLogin))
@@ -82,9 +85,9 @@ function Main({}) {
           </button>
           {isDropdown && (
             <div className='dropdown-content'>
-              {/* <a href="/"><Logout />로그아웃</a> */}
               <button onClick={logOut}>로그아웃</button>
-              <a href="/update/userId">정보변경</a>
+              <Link to={`update/${userId}`}>정보변경</Link>
+              {/* <button onClick={update}>정보변경</button> */}
               <button onClick={() => dispatch(deleteUser(userId))}>회원탈퇴</button>
             </div>
           )}

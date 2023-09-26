@@ -21,6 +21,7 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
 class MyTokenObtainPairView(TokenObtainPairView):
     serializer_class=MyTokenObtainPairSerializer
 
+
 @api_view(['POST'])
 def registerUser(request):
     data = request.data
@@ -38,6 +39,7 @@ def registerUser(request):
         message = {'detail': '해당 이메일의 사용자가 이미 존재합니다.'}
         return Response(message, status=status.HTTP_400_BAD_REQUEST)
 
+
 @api_view(['GET'])
 @permission_classes([IsAdminUser])
 def getUserById(request,pk):
@@ -45,19 +47,53 @@ def getUserById(request,pk):
     serializer=UserSerializer(user, many=False)
     return Response(serializer.data)
 
+
 @api_view(['PUT'])
 @permission_classes([IsAuthenticated])
 def updateUser(request,pk):
     user=User.objects.get(id=pk)
     data=request.data
-    user.username=data['username']
+    user.username=data['email']
     user.save()
     serializer=UserSerializer(user, many=False)
     return Response(serializer.data)
 
+
 @api_view(['DELETE'])
 @permission_classes([IsAuthenticated])
-def deleteUser(pk):
+def deleteUser(request, pk):
     userForDeletion=User.objects.get(id=pk)
     userForDeletion.delete()
     return Response('User was deleted')
+
+
+@api_view(['PUT'])
+@permission_classes([IsAuthenticated])
+def updateUserProfile(request):
+    user = request.user
+    serializer = UserSerializerWithToken(user, many=False)
+
+    data = request.data
+    user.first_name = data['name']
+    user.username = data['email']
+
+    if data['password'] != '':
+        user.password = make_password(data['password'])
+    user.save()
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def getUserProfile(request):
+    user = request.user
+    serializer = UserSerializer(user, many=False)
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def getUsers(request):
+    users = User.objects.all()
+    serializer = UserSerializer(users, many=True)
+    return Response(serializer.data)

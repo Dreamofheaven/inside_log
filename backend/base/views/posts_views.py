@@ -99,4 +99,3 @@ def deletePosts(request, pk):
     post=Post.objects.get(id=pk)
     post.delete()
     return Response('Post Deleted')
-
