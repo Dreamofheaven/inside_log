@@ -1,5 +1,13 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser, Group, Permission
+from phonenumber_field.modelfields import PhoneNumberField
+
+class User(AbstractUser):
+    # 기존의 'groups'와 충돌을 방지하기 위해 related_name 설정
+    groups = models.ManyToManyField(Group, related_name='custom_user_set')
+    # 기존의 'user_permissions'와 충돌을 방지하기 위해 related_name 설정
+    user_permissions = models.ManyToManyField(Permission, related_name='custom_user_set')
+    phone_number=PhoneNumberField(unique=True)
 
 class Post(models.Model):
     id=models.AutoField(primary_key=True)

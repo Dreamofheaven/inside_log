@@ -1,16 +1,17 @@
 from rest_framework import serializers
-from django.contrib.auth.models import User
+# from django.contrib.auth.models import User
 from rest_framework_simplejwt.tokens import RefreshToken
-from .models import Post, Review
+from base.models import User, Post, Review
 
 class UserSerializer(serializers.ModelSerializer):
-    name=serializers.SerializerMethodField(read_only=True)
-    _id=serializers.SerializerMethodField(read_only=True)
-    isAdmin=serializers.SerializerMethodField(read_only=True)
+    name = serializers.SerializerMethodField(read_only=True)
+    # phone_number = serializers.SerializerMethodField(read_only=True)
+    _id = serializers.SerializerMethodField(read_only=True)
+    isAdmin = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = User
-        fields = ['id','_id','username','email','name','isAdmin']
+        fields = ['id','_id','username','email','name','isAdmin', 'phone_number']
         
     def get__id(self, obj):
         return obj.id
@@ -24,10 +25,9 @@ class UserSerializer(serializers.ModelSerializer):
 
 class UserSerializerWithToken(UserSerializer):
     token = serializers.SerializerMethodField(read_only=True)
-
     class Meta:
         model = User
-        fields = ['id', '_id', 'username', 'email', 'name', 'isAdmin', 'token']
+        fields = ['id', '_id', 'username', 'email', 'name', 'isAdmin', 'phone_number','token']
 
     def get_token(self, obj):
         token = RefreshToken.for_user(obj)
