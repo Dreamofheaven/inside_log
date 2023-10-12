@@ -87,7 +87,6 @@ function Main({}) {
             <div className='dropdown-content'>
               <button onClick={logOut}>로그아웃</button>
               <Link to={`update/${userId}`}>정보변경</Link>
-              {/* <button onClick={update}>정보변경</button> */}
               <button onClick={() => dispatch(deleteUser(userId))}>회원탈퇴</button>
             </div>
           )}

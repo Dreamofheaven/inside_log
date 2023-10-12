@@ -7,9 +7,11 @@ import { register } from '../../actions/userActions'
 function Register({location, history}) {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
+  const [phoneNumber, setPhoneNumber] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword]=useState('')
   const [message, setMessage] = useState('')
+
   const dispatch = useDispatch()
   const userRegister = useSelector(state => state.register)
   const {error, userInfo} = userRegister 
@@ -22,13 +24,13 @@ function Register({location, history}) {
 
   const submitHandler = (e) => {
     e.preventDefault()
-    if (password != confirmPassword){
+    if (password !== confirmPassword){
         setMessage('비밀번호가 일치하지 않습니다.')
     } else if (error){
       setMessage(error.message)
     }
     else {
-        dispatch(register(name, email, password))
+        dispatch(register(name, email, phoneNumber, password))
     }
   }
   return (
@@ -39,6 +41,7 @@ function Register({location, history}) {
       <form onSubmit={submitHandler}>
         <input required type="name" name="name" id="name" placeholder='이름' onChange={(e) => setName(e.target.value)} />
         <input required type="email" name="email" id="email" placeholder='이메일' onChange={(e) => setEmail(e.target.value)} />
+        <input required type="phoneNumber" name="phoneNumber" id="phoneNumber" placeholder='전화번호' onChange={(e) => setPhoneNumber(e.target.value)} />
         <input required type="password" name="password" id="password" placeholder='비밀번호' onChange={(e) => setPassword(e.target.value)} />
         <input required type="password" name="passwordConfirm" id="passwordConfirm" placeholder='비밀번호 확인' onChange={(e) => setConfirmPassword(e.target.value)} />
         <button type="submit">회원가입</button>

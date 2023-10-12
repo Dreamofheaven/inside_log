@@ -25,7 +25,6 @@ function LoginForm({ location, history }) {
     e.preventDefault()
     dispatch(login(email, password))
   }
-
   return (
     <div className='loginForm'>
       {error && <Message variant='danger'>아이디와 비밀번호를 확인하세요.</Message>}

@@ -16,7 +16,7 @@ export const login = (email, password) => async (dispatch) => {
         })
         const config={
             headers: {
-                'Content-type':'application/json'
+                'Content-type':'application/json',
             }
         }
         const {data} = await axios.post(
@@ -44,7 +44,7 @@ export const logout=()=>(dispatch)=>{
     dispatch({type:USER_DETAILS_RESET})
     window.location.replace('/')
 }
-export const register = (name, email, password) => async (dispatch) => {
+export const register = (name, email, phoneNumber, password) => async (dispatch) => {
     try {
         dispatch({
             type: USER_REGISTER_REQUEST
@@ -56,7 +56,7 @@ export const register = (name, email, password) => async (dispatch) => {
         }
         const {data} = await axios.post(
             'http://localhost:8000/accounts/register/',
-            {'name': name, 'email': email, 'password': password},
+            {'name': name, 'email': email, 'phone_number': phoneNumber, 'password': password},
             config
         )
         dispatch({
