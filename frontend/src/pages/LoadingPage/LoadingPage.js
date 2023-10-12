@@ -7,7 +7,7 @@ function LoadingPage() {
     const idFromURL = searchParams.get('id');
     setTimeout(()=> {
     window.location.assign(`/posts/${idFromURL}`)
-      },10000); 
+      },40000); 
   return (
     <div className='loading-page'>
         <div className='runner-img'>
