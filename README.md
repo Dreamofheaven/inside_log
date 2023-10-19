@@ -1,3 +1,3 @@
 # inside_log
 
-서버 : https://inside-log-fe.vercel.app/
+홈페이지 : https://inside-log-fe.vercel.app/
