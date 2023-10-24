@@ -8,6 +8,8 @@ import Tree from '../../components/Tree'
 import PostList from '../../components/PostList'
 import Paginate from '../../components/Paginate';
 import {logout, deleteUser, updateUser} from '../../actions/userActions'
+import { confirmAlert } from 'react-confirm-alert'
+import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 import './Main.css';
 
 function Main({}) { 
@@ -49,6 +51,24 @@ function Main({}) {
     dispatch(listPosts(userLogin))
   }, [userLogin])
 
+  // 회원탈퇴
+  const onDelete = () => {
+    console.log('삭제 버튼을')
+    confirmAlert({
+      title: 'Confirm to click',
+      message: '계정을 삭제하시겠습니까?',
+      buttons: [
+        {
+          label: 'Yes',
+          onClick: () => dispatch(deleteUser(userId))
+        },
+        {
+          label: 'No',
+          // onClick: () => 
+        }
+      ]
+    });
+  }
 
   // 페이지 네이션 관련 코드
   const [count, setCount] = useState(0); // 아이템 총 개수
@@ -87,7 +107,8 @@ function Main({}) {
             <div className='dropdown-content'>
               <button onClick={logOut}>로그아웃</button>
               <Link to={`update/${userId}`}>정보변경</Link>
-              <button onClick={() => dispatch(deleteUser(userId))}>회원탈퇴</button>
+              {/* <button onClick={() => dispatch(deleteUser(userId))}>회원탈퇴</button> */}
+              <button onClick={onDelete}>회원탈퇴</button>
             </div>
           )}
         </div>  

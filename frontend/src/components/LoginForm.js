@@ -34,9 +34,14 @@ function LoginForm({ location, history }) {
         <input type="password" placeholder='Enter Password' value={password} onChange={(e) => setPassword(e.target.value)} />
         <button type="submit">로그인</button>
       </form>
-      <Link to={'/register'} className="links">
-        <div className='register-button'>회원가입</div>
-      </Link>
+      <div className='button-wrap'>
+        <Link to={'/register'} className="links">
+          <div className='register-button'>회원가입</div>
+        </Link>
+        <Link to={'/'} className="links">
+          <div className='search-button'>계정 찾기</div>
+        </Link>
+      </div>
     </div>
   )
 }

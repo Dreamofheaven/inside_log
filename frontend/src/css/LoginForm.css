@@ -26,6 +26,10 @@ form button:hover {
   cursor: pointer;
   color: var(--third-color);
 }
+.button-wrap {
+  display: flex;
+  gap: 20px;
+}
 .links {
   text-decoration: none;
 }
@@ -35,6 +39,20 @@ form button:hover {
   border-radius: 50%;
   background-color: #f7e600;
   color: white;
+  align-items:center;
+  justify-content:center;
+  display:flex;
+  font-size:18px;
+  font-weight:bold;
+  border:none;
+  text-decoration: none;
+}
+.search-button {
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
+  background-color: white;
+  color: #f7e600;
   align-items:center;
   justify-content:center;
   display:flex;

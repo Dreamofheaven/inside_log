@@ -5,6 +5,14 @@
 .update-page h1 {
     font-size: 40px;
 }
+/* .update-head {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(20%, auto));
+} */
+.not-modify {
+    color:red;
+    font-weight: bold;
+}
 .update-page form {
     width: 70vh;
     display: flex;
