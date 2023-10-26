@@ -45,7 +45,7 @@ function Create() {
             <input type='text' placeholder='제목' value={title} onChange={(e) => setTitle(e.target.value)}/>
           </div>
           <div id = 'message' className='create-page-form-content'>
-            <textarea placeholder='내용을 입력하세요.' value={body} onChange={(e) => setBody(e.target.value)}/>
+            <textarea placeholder='힘들고 슬픈 일이 있나요? 저에게 작성해주세요🙂' value={body} onChange={(e) => setBody(e.target.value)}/>
           </div>
           <input id = 'send' className='create-page-form-submit' onClick={() => console.log('등록눌렀음')} type='submit' value='등록'/>
         </form>
