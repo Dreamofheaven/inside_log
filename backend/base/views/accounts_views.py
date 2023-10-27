@@ -8,6 +8,7 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 from django.contrib.auth.hashers import make_password
 from rest_framework import status
 from django.http import JsonResponse
+from rest_framework.permissions import AllowAny
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     def validate(self, attrs):
@@ -76,7 +77,8 @@ def updateUserProfile(request):
 
     data = request.data
     user.first_name = data['name']
-    user.username = data['email']
+    # user.username = data['email']
+    user.phone_number = data['phone_number']
 
     if data['password'] != '':
         user.password = make_password(data['password'])
@@ -99,19 +101,17 @@ def getUsers(request):
     serializer = UserSerializer(users, many=True)
     return Response(serializer.data)
 
-
-
 # 임시
 @api_view(['POST'])
+@permission_classes([AllowAny])
 def find_user_id(request):
-    if request.method=='POST':
-        email=request.POST.get('email')
-        try:
-            user=User.objects.get(email=email)
-            return JsonResponse({'username':user.username})
-        except User.DoesNotExist:
-            return JsonResponse({'error':'User not found.'})
-    return 
+    phone_number = request.POST.get('phone_number')
+    print('실행되나??')
+    try:
+        user = User.objects.get(phone_number = phone_number)
+        return Response({'username':user.username})
+    except User.DoesNotExist:
+        return Response({'error':'입력하신 번호로 가입된 이메일을 찾을 수 없습니다.'})
 # def find_user_id(request):
 #     if request.method == 'POST':
 #         form = FindUserIDForm(request.POST)

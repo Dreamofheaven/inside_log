@@ -13,7 +13,7 @@ function LoadingPage() {
         <div className='runner-img'>
             <img src="/images/runner.png" alt="달리는 사람" />
         </div>
-        <h2>GhatGPT가 답을 받아오고 있어요.</h2>
+        <h2>chatGPT가 답을 받아오고 있어요.</h2>
         <div className='loading-icon'>
             <Oval className="oval"/>
         </div>

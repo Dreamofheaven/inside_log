@@ -14,7 +14,7 @@ import './Main.css';
 
 function Main({}) { 
   const token = sessionStorage.getItem('userInfo')
-  let userInfoObject={};
+  let userInfoObject = {};
   try{
     userInfoObject = JSON.parse(token);
   }catch(error){
@@ -53,7 +53,6 @@ function Main({}) {
 
   // 회원탈퇴
   const onDelete = () => {
-    console.log('삭제 버튼을')
     confirmAlert({
       title: 'Confirm to click',
       message: '계정을 삭제하시겠습니까?',
@@ -64,7 +63,6 @@ function Main({}) {
         },
         {
           label: 'No',
-          // onClick: () => 
         }
       ]
     });
@@ -107,7 +105,6 @@ function Main({}) {
             <div className='dropdown-content'>
               <button onClick={logOut}>로그아웃</button>
               <Link to={`update/${userId}`}>정보변경</Link>
-              {/* <button onClick={() => dispatch(deleteUser(userId))}>회원탈퇴</button> */}
               <button onClick={onDelete}>회원탈퇴</button>
             </div>
           )}

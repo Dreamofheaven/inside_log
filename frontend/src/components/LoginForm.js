@@ -38,7 +38,7 @@ function LoginForm({ location, history }) {
         <Link to={'/register'} className="links">
           <div className='register-button'>회원가입</div>
         </Link>
-        <Link to={'/'} className="links">
+        <Link to={'/search_account'} className="links">
           <div className='search-button'>계정 찾기</div>
         </Link>
       </div>

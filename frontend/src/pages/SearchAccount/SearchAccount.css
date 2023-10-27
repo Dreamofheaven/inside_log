@@ -1,0 +1,20 @@
+.search-wrap {   
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.search-box {
+    background-color: var( --secondary-color);
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 3px 3px 3px gray;
+    text-align: center;
+    width: 35vw;
+    height: 30vh;
+    /* margin-top: 30vh; */
+    padding: 20px;
+}
+.button-wrap {
+    justify-content: center;
+}
