@@ -4,14 +4,9 @@
   height: 500px;
 }
 .main-title {
-    /* position: relative; */
   display: flex;
   justify-content: center;
   align-items: center; 
-  /* position: fixed; */
-  /* top: 10%;
-  left: 50%;
-  transform: translate(-50%, -50%);  */
 }
 .title-container{
   text-align: center;
@@ -59,9 +54,11 @@
   color: green;
 }
 .dropdown-content a:hover {
-  background-color: #ececec;
   cursor: pointer;
+  font-weight: bold;
+  color: green;
 }
+
 .smile-container .dropdown-content {
   display: block;
   background-color: #ececec;

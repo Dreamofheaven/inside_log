@@ -10,7 +10,7 @@ function SearchID({ phone_number }) {
     // 모달
     // const [modalOpen, setModalOpen] = 
 
-    useEffect(()=> {
+    useEffect(()=> { 
         async function fetchData() {
             try{
                 const response = await axios.post('http://localhost:8000/accounts/search_id/',{
