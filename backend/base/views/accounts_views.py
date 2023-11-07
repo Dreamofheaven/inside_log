@@ -102,13 +102,18 @@ def getUsers(request):
     return Response(serializer.data)
 
 # 임시
+from rest_framework.authtoken.models import Token
+
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def find_user_id(request):
     phone_number = request.POST.get('phone_number')
+    print(phone_number)
     print('실행되나??')
     try:
         user = User.objects.get(phone_number = phone_number)
+        # token, created = Token.objects.get_or_create(user=user)
+
         return Response({'username':user.username})
     except User.DoesNotExist:
         return Response({'error':'입력하신 번호로 가입된 이메일을 찾을 수 없습니다.'})
