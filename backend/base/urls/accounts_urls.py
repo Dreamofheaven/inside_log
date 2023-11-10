@@ -10,4 +10,5 @@ urlpatterns = [
   path('update/<str:pk>/',views.updateUser, name='user-update'),
   path('delete/<str:pk>/', views.deleteUser, name='user-delete'),
   path('search_id/', views.find_user_id, name='user-find'),
+  # path('token/', views.generate_temporary_token, name='generate_temporary_token'),
 ] 
