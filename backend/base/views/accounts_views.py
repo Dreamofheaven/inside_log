@@ -2,11 +2,11 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.response import Response
 from base.models import User
-from base.serializers import UserSerializer, UserSerializerWithToken
+from base.serializers import UserSerializer, UserSerializerWithToken,FindIDPasswordSerializer
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
 from django.contrib.auth.hashers import make_password
-from rest_framework import status
+from rest_framework import generics, status
 from django.http import JsonResponse
 from rest_framework.permissions import AllowAny
 
@@ -102,9 +102,11 @@ def getUsers(request):
     return Response(serializer.data)
 
 # 임시
+from rest_framework.decorators import api_view, authentication_classes, permission_classes
 from rest_framework.authtoken.models import Token
 
 @api_view(['POST'])
+@authentication_classes([])
 @permission_classes([AllowAny])
 def find_user_id(request):
     phone_number = request.POST.get('phone_number')
@@ -117,6 +119,7 @@ def find_user_id(request):
         return Response({'username':user.username})
     except User.DoesNotExist:
         return Response({'error':'입력하신 번호로 가입된 이메일을 찾을 수 없습니다.'})
+    
 # def find_user_id(request):
 #     if request.method == 'POST':
 #         form = FindUserIDForm(request.POST)
@@ -192,3 +195,27 @@ def find_user_id(request):
 #     else:
 #         messages.error(request, '비밀번호 재설정 링크가 유효하지 않습니다.')
 #         return redirect('accounts:password_reset_request')
+
+
+# 이메일 인증방법
+# from django.shortcuts import get_object_or_404
+# from django.http import Http404
+# from rest_framework import generics, status
+
+# class find_user_id(generics.GenericAPIView):
+#     serializer_class = FindIDPasswordSerializer
+#     permission_classes = (AllowAny,)
+
+#     def post(self, request):
+#         print(request.data)
+#         serializer = self.serializer_class(data=request.data)
+#         if serializer.is_valid():
+#             if request.data['IDorPassword'] == 'id':  # ID 찾기, 메일 안보내도됨.
+#                 try:
+#                     user = get_object_or_404(User, phone_number=request.data['phone_number'])
+#                     return Response({"username": user.username}, status=status.HTTP_200_OK)
+#                 except(Http404):
+#                     return Response({"error": "해당 메일로 가입된 아이디가 없습니다."}, status=status.HTTP_404_NOT_FOUND)
+#         else:
+#             return Response({"error": "올바른 이메일 주소 형식으로 입력해주세요."}, status.HTTP_400_BAD_REQUEST)
+
