@@ -30,8 +30,10 @@ class UserSerializerWithToken(UserSerializer):
         fields = ['id', '_id', 'username', 'email', 'name', 'isAdmin', 'phone_number','token']
 
     def get_token(self, obj):
-        token = RefreshToken.for_user(obj)
-        return str(token.access_token)
+        if hasattr(obj, 'id'):
+            token = RefreshToken.for_user(obj)
+            return str(token.access_token)
+        return None
     
 class ReviewSerializer(serializers.ModelSerializer):
     class Meta:
