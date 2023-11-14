@@ -2,11 +2,11 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.response import Response
 from base.models import User
-from base.serializers import UserSerializer, UserSerializerWithToken
+from base.serializers import UserSerializer, UserSerializerWithToken,FindIDPasswordSerializer
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
 from django.contrib.auth.hashers import make_password
-from rest_framework import status
+from rest_framework import generics, status
 from django.http import JsonResponse
 from rest_framework.permissions import AllowAny
 
@@ -102,9 +102,11 @@ def getUsers(request):
     return Response(serializer.data)
 
 # 임시
+from rest_framework.decorators import api_view, authentication_classes, permission_classes
 from rest_framework.authtoken.models import Token
 
 @api_view(['POST'])
+@authentication_classes([])
 @permission_classes([AllowAny])
 def find_user_id(request):
     phone_number = request.POST.get('phone_number','')
@@ -115,3 +117,4 @@ def find_user_id(request):
         return Response({'username':user.username})
     except User.DoesNotExist:
         return Response({'error':'입력하신 번호로 가입된 이메일을 찾을 수 없습니다.'})
+    
