@@ -34,14 +34,15 @@ export const listPosts = (userLogin) => async (dispatch) => {
         })
     }
 }
-export const updateProduct = (product) => async (dispatch, getState) => {
+export const updatePost = (_id, title, body, userInfo) => async (dispatch, getState) => {
     try {
         dispatch({
             type: POST_UPDATE_REQUEST
         })
-        const {
-            userLogin: { userInfo },
-        } = getState()
+        const post = {title, body};
+        // const {
+        //     userLogin: { userInfo },
+        // } = getState()
         const config = {
             headers: {
                 'Content-type': 'application/json',
@@ -49,8 +50,8 @@ export const updateProduct = (product) => async (dispatch, getState) => {
             }
         }
         const { data } = await axios.put(
-            `/api/products/update/${product._id}/`,
-            product,
+            `http://127.0.0.1:8000/posts/update/${_id}/`,
+            post,
             config
         )
         dispatch({

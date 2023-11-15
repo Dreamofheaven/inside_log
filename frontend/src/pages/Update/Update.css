@@ -24,6 +24,21 @@
 .update-page input {
     height: 5vh;
 }
-.update-page button {
-    margin-top: 2rem;
+.btn-warp {
+    width: 100%;
 }
+.btn-warp button {
+    width: 100%;
+}
+.btn-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+.btn {
+    flex-grow:1;
+}
+/* .link-button {
+    text-decoration: none;
+  } */
+  

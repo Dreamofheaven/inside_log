@@ -63,19 +63,7 @@ function Update() {
   return (
     <div>
         <div className='update-page'> 
-    <Container>
-        <Row>
-            <Col sm>
-                <Link to='/main'> 
-                    <FaArrowLeftLong className='back' />
-                </Link>
-            </Col>
-            <Col sm>
-                <h1>정보변경</h1> 
-            </Col>
-            <Col sm></Col>
-        </Row>
-    </Container>
+            <h1>정보변경</h1> 
             {message && <span>{message}</span>}
             {password == confirmPassword && showAlert && (
                 <div className='alert alert-success' role='alert'>
@@ -89,7 +77,16 @@ function Update() {
                 <input type="phone_number" name="phone_number" id="phone_number" value={phone_number} onChange={(e) => setPhone_number(e.target.value)} />
                 <input type="password" name="password" id="password" placeholder='비밀번호' onChange={(e) => setPassword(e.target.value)} />
                 <input type="password" name="passwordConfirm" id="passwordConfirm" placeholder='비밀번호 확인' onChange={(e) => setConfirmPassword(e.target.value)} />
-                <button type="submit">확인</button>
+                <div className='btn-container'>
+                    <div className='btn-warp'>
+                        <Link to="/main" className="btn btn-back">
+                            <button>뒤로가기</button>
+                        </Link>
+                    </div>
+                    <div className='btn-warp'>
+                        <button type="submit" className="btn btn-submit">변경하기</button>
+                    </div>
+                </div>
             </form>
         </div>
     </div>
