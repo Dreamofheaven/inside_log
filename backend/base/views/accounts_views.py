@@ -50,17 +50,6 @@ def getUserById(request,pk):
     return Response(serializer.data)
 
 
-@api_view(['PUT'])
-@permission_classes([IsAuthenticated])
-def updateUser(request,pk):
-    user=User.objects.get(id=pk)
-    data=request.data
-    user.username=data['email']
-    user.save()
-    serializer=UserSerializer(user, many=False)
-    return Response(serializer.data)
-
-
 @api_view(['DELETE'])
 @permission_classes([IsAuthenticated])
 def deleteUser(request, pk):

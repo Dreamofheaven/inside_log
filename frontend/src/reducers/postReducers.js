@@ -6,6 +6,7 @@ import {
     POST_UPDATE_REQUEST, POST_UPDATE_SUCCESS, POST_UPDATE_FAIL, POST_UPDATE_RESET,
     REVIEW_LIST_REQUEST, REVIEW_LIST_SUCCESS, REVIEW_LIST_FAIL,
     REVIEW_CREATE_REQUEST, REVIEW_CREATE_SUCCESS, REVIEW_CREATE_FAIL, REVIEW_CREATE_RESET,
+    REVIEW_DELETE_REQUEST, REVIEW_DELETE_SUCCESS, REVIEW_DELETE_FAIL,
 } from '../constants/postConstants'
 
 export const postListReducer = (state={posts:[]}, action)=> {
@@ -128,6 +129,22 @@ export const reviewCreateReducer = (state = {}, action) => {
 
         case REVIEW_CREATE_RESET:
             return {}
+
+        default:
+            return state
+    }
+}
+
+export const reviewDeleteReducer = (state = {}, action) => {
+    switch (action.type) {
+        case REVIEW_DELETE_REQUEST:
+            return { loading: true }
+
+        case REVIEW_DELETE_SUCCESS:
+            return { loading: false, success: true }
+
+        case REVIEW_DELETE_FAIL:
+            return { loading: false, error: action.payload }
 
         default:
             return state

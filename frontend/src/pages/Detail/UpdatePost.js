@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import './UpdatePost.css'
-// import { POST_UPDATE_RESET } from '../constants/postConstants'
 import { updatePost } from '../../actions/postAction'
 
 function UpdatePost() {
@@ -16,24 +15,16 @@ function UpdatePost() {
 
         const dispatch = useDispatch()
         const { id } = useParams()
-        console.log(id)
 
         useEffect(() => {
-            // if (sucessUpdate){
-            //     dispatch({type:POST_UPDATE_RESET})
-            // }
-            if (!id !== Number(id)) {
-                // null
-            } else {
-                setTitle() //자미만요
-            }
-        }, [dispatch])
+            if (!id == Number(id)) {
+              setTitle() 
+            } else {}},[dispatch])
 
   const createPostHandler = async (e) => {
     e.preventDefault()
     try {
         dispatch(updatePost({
-            // '_id':post._id,
             'title': title,
             'body': body,
             'userInfo': userInfo
@@ -46,7 +37,7 @@ function UpdatePost() {
 
   return (
     <div className='create-page'>
-      <Link to='/main'>
+      <Link to={`/posts/${id}`}>
         <FaArrowLeftLong className='back' />
       </Link>
       <div className='create-page-box'>
@@ -57,7 +48,7 @@ function UpdatePost() {
           <div id = 'message' className='create-page-form-content'>
             <textarea value={body} onChange={(e) => setBody(e.target.value)}/>
           </div>
-          <input id = 'send' className='create-page-form-submit' onClick={() => console.log('등록눌렀음')} type='submit' value='등록'/>
+          <input id = 'send' className='create-page-form-submit' onClick={() => console.log('등록눌렀음')} type='submit' value='수정'/>
         </form>
       </div>   
     </div>

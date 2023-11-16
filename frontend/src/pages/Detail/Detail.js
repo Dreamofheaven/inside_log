@@ -5,28 +5,34 @@ import { useParams } from 'react-router-dom'
 import { FaArrowLeftLong } from 'react-icons/fa6'
 import { FaRegFaceGrin } from 'react-icons/fa6'
 import { IoTrashOutline } from "react-icons/io5";
-import { listReview } from '../../actions/postAction'
+import { listReview, reviewDelete, getPost } from '../../actions/postAction'
 import CreateReview from '../../components/CreateReview'
 import axios from 'axios'
 import './Detail.css'
+import { FaRegPenToSquare } from "react-icons/fa6";
 
 function Detail() {
   const token=sessionStorage.getItem('userInfo')
   if (!token){
       window.location.href='/';
   }
-  const { id } = useParams()
+
   const dispatch = useDispatch()
+
+  const { id } = useParams()
   const [post, setPost] = useState(null)
+
   const reviewList = useSelector(state => state.reviewList.review) 
+
   const handleDelete=async()=>{
     try{
-      const response = await axios.delete(`http://127.0.0.1:8000/posts/delete/${id}/`)
+      dispatch(reviewDelete(id))
       window.location.assign('/main') 
     } catch (error){
       console.error('리뷰 삭제 오류',error);
     }
   }
+  
   const handleButtonClick = () => {
     dispatch(listReview(id)) 
     setTimeout(()=> {
@@ -37,9 +43,9 @@ function Detail() {
   useEffect(() => {
     async function fetchPost() {
       try {
-        const postResponse = await axios.get(`http://127.0.0.1:8000/posts/${id}/`)
-        const postData = postResponse.data
-        setPost(postData)
+        const response = await axios.get(`http://127.0.0.1:8000/posts/${id}/`)
+        const postData = response.data
+        setPost(postData) 
         dispatch(listReview(id))
       } catch (error) {
       }
@@ -54,7 +60,12 @@ function Detail() {
         <Link to='/main'>
           <FaArrowLeftLong className='back' />
         </Link>
-        <IoTrashOutline className='delete-button' onClick={handleDelete} />
+        <div className='detail-page-sub'>
+          <Link to={`/posts/${id}/update`}>
+            <FaRegPenToSquare className='update'/>
+          </Link>
+          <IoTrashOutline className='delete-button' onClick={handleDelete} />
+        </div>
       </div>
       <div className='detail-page-box'>
         <div className='detail-title'>

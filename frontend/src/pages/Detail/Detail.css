@@ -22,8 +22,18 @@
 }
 .detail-page-box2{
   display:flex;
-  justify-content:space-between;
+  justify-content:space-between; 
   align-items:center;
+}
+.detail-page-sub{
+  gap:1vw;
+  display: flex;
+  align-items: center;
+}
+.update{
+  top: 10px; 
+  right: 20px; 
+  font-size: 4vw;
 }
 .detail-title .num {
   font-family: 'Righteous', cursive;

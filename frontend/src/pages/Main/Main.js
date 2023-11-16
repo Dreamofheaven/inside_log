@@ -7,7 +7,7 @@ import Footer from '../../components/Footer'
 import Tree from '../../components/Tree'
 import PostList from '../../components/PostList'
 import Paginate from '../../components/Paginate';
-import {logout, deleteUser, updateUser} from '../../actions/userActions'
+import {logout, deleteUser} from '../../actions/userActions' 
 import { confirmAlert } from 'react-confirm-alert'
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 import './Main.css';
@@ -41,10 +41,6 @@ function Main({}) {
   // 로그아웃
   const logOut = () => {
       dispatch(logout())
-  };
-  // 업데이트
-  const update = () => {
-    dispatch(updateUser(userId))
   };
   // 게시글 
   useEffect(() => {

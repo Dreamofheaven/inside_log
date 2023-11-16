@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { FaArrowLeftLong } from 'react-icons/fa6'
 import { Link } from 'react-router-dom'
-import { useSelector } from 'react-redux'
-import axios from 'axios'
+import { useSelector, useDispatch } from 'react-redux'
+import { createPost } from '../../actions/postAction'
 import './Create.css'
 
 function Create() {
@@ -13,24 +13,14 @@ function Create() {
   const userLogin = useSelector(state => {return state.userLogin.userInfo})
   const [title, setTitle] = useState('')
   const [body, setBody] = useState('')
-  const createPostHandler = async (e) => {
+
+  const dispatch = useDispatch()
+
+  const createPostHandler = (e) => {
     e.preventDefault()
-    try {
-      const response = await axios.post('http://127.0.0.1:8000/posts/create/',
-        {
-          title: title,
-          body: body,
-        },
-        {
-          headers: {
-            'Content-type': 'application/json',
-            Authorization: `Bearer ${userLogin.token}`,
-          },
-        }
-      )
-      window.location.assign('/main')
-    } catch (error) {
-      console.log('에러가 발생하였습니다.', error)
+    if (title !== " "){
+      dispatch(createPost(title,body,userLogin))
+      window.location.href = '/main';
     }
   }
 
@@ -47,7 +37,7 @@ function Create() {
           <div id = 'message' className='create-page-form-content'>
             <textarea placeholder='힘들고 슬픈 일이 있나요? 저에게 작성해주세요🙂' value={body} onChange={(e) => setBody(e.target.value)}/>
           </div>
-          <input id = 'send' className='create-page-form-submit' onClick={() => console.log('등록눌렀음')} type='submit' value='등록'/>
+          <input id = 'send' className='create-page-form-submit' type='submit' value='등록'/>
         </form>
       </div>   
     </div>
