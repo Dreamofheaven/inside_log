@@ -92,10 +92,10 @@ def getPost(request, pk):
     return Response(serializer.data)
 
 @api_view(['PUT'])
-@permission_classes([IsAdminUser])
+@permission_classes([IsAuthenticated])
 def updatePosts(request, pk):
     data = request.data
-    post = Post.objects(id=pk)
+    post = Post.objects.get(id=pk) 
     post.title = data['title']
     post.body = data['body']
     post.save()

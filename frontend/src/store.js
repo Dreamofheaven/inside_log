@@ -28,8 +28,23 @@ const rootReducer = combineReducers({
 
 const userInfoFromStorage = sessionStorage.getItem('userInfo') ?
     JSON.parse(sessionStorage.getItem('userInfo')) : null 
+
+// const postInfoFromStorage = localStorage.getItem('') 
+
 const initialState = {
     userLogin: { userInfo: userInfoFromStorage },
+    // postList: [],
+    // postDetails: [],
+    // postDelete: [],
+    // postCreate: [],
+    // postUpdate: [],
+    // reviewList: [],
+    // reviewCreate: [],
+    // register: [],
+    // details: [],
+    // userUpdateProfile: [],
+    // delete: [],
+    // update: [],
 }
 const middleware = [thunk]
 const store = createStore(rootReducer, initialState,

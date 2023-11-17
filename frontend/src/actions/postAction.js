@@ -16,8 +16,8 @@ export const createPost = (title, body,userLogin) => async (dispatch) => {
         dispatch({type: POST_CREATE_REQUEST})
         const { data } =  await axios.post(`http://127.0.0.1:8000/posts/create/`,
             {
-                title: title,
-                body: body,
+                'title': title,
+               'body': body,
             },{
                 headers: {
                     'Content-type': 'application/json',
@@ -68,8 +68,10 @@ export const updatePost = (_id, title, body, userInfo) => async (dispatch, getSt
         dispatch({
             type: POST_UPDATE_REQUEST
         })
-        const post = {title, body};
-
+        const post = {
+            title,
+            body,
+        };
         const config = {
             headers: {
                 'Content-type': 'application/json',
@@ -80,7 +82,7 @@ export const updatePost = (_id, title, body, userInfo) => async (dispatch, getSt
             `http://127.0.0.1:8000/posts/update/${_id}/`,
             post,
             config
-        )
+        ) 
         dispatch({
             type: POST_UPDATE_SUCCESS,
             payload: data,

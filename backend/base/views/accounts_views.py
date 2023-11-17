@@ -107,3 +107,15 @@ def find_user_id(request):
     except User.DoesNotExist:
         return Response({'error':'입력하신 번호로 가입된 이메일을 찾을 수 없습니다.'})
     
+@api_view(['PUT'])
+@permission_classes([IsAuthenticated])
+def update_password(request):
+    user = request.user
+    serializer = UserSerializerWithToken(user, many=False)
+
+    data = request.data
+    if (user.username == data['email'])&(user.phone_number == data['phone_number']):
+        if data['password'] != '':
+            user.password = make_password(data['password'])
+        user.save()
+    return Response(serializer.data)

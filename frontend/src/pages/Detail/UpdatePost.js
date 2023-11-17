@@ -7,29 +7,32 @@ import './UpdatePost.css'
 import { updatePost } from '../../actions/postAction'
 
 function UpdatePost() {
+        const { id } = useParams() 
+
         const userInfo = useSelector(state => {return state.userLogin.userInfo})
-        const postInfo = useSelector(state => {return state.postDetails}) 
-        console.log(postInfo)
+      
         const [title, setTitle] = useState('')
         const [body, setBody] = useState('')
-
+        
         const dispatch = useDispatch()
-        const { id } = useParams()
-
+        
+        const postInfos = useSelector((state) => state.postList.posts)
         useEffect(() => {
-            if (!id == Number(id)) {
-              setTitle() 
-            } else {}},[dispatch])
+          const post = postInfos.find((item) => item.id === parseInt(id,10)) 
 
+          if (post) {
+            setTitle(post.title)
+            setBody(post.body)
+          } else {
+            console.log("해당 게시글을 찾을 수 없습니다.")
+          }
+        }, [id,dispatch])
+        
   const createPostHandler = async (e) => {
     e.preventDefault()
     try {
-        dispatch(updatePost({
-            'title': title,
-            'body': body,
-            'userInfo': userInfo
-        }))
-        window.location.assign('/main')
+        dispatch(updatePost(id, title, body, userInfo))
+        window.location.assign(`/posts/${id}`) 
     } catch (error) {
       console.log('에러가 발생하였습니다.', error)
     }
@@ -48,7 +51,7 @@ function UpdatePost() {
           <div id = 'message' className='create-page-form-content'>
             <textarea value={body} onChange={(e) => setBody(e.target.value)}/>
           </div>
-          <input id = 'send' className='create-page-form-submit' onClick={() => console.log('등록눌렀음')} type='submit' value='수정'/>
+          <input id = 'send' className='create-page-form-submit' type='submit' value='수정'/>
         </form>
       </div>   
     </div>

@@ -29,7 +29,7 @@ function Update() {
         if (!user || !user.name || success || userInfo._id !== user._id) {
                 dispatch({ type: USER_UPDATE_PROFILE_RESET })
                 dispatch(getUserDetails('profile')) 
-                console.log('getUser디테일 실행됨')
+                // console.log('getUser디테일 실행됨')
             } else {
                 setName(user.name)
                 setEmail(user.email)
