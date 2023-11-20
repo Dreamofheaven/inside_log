@@ -19,6 +19,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'phonenumber_field',
 
+    'rest_framework_simplejwt',
+
     # 'base.apps.BaseConfig',
 ]
 REST_FRAMEWORK = {
@@ -26,7 +28,7 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.AllowAny',
         ],
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        # 'rest_framework_simplejwt.authentication.JWTAuthentication',
         # 'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
 
 

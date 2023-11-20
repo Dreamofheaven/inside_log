@@ -20,8 +20,8 @@ function SearchAccount({location, history}) {
         setIsSearchPW(true);
     };
     const submitHandler = (e) => {
-      e.preventDefault()
-          dispatch(SearchAccount(phone_number))
+        e.preventDefault()
+        dispatch(SearchAccount(phone_number))
       }
   return (
     <div className='search-wrap'>

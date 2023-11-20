@@ -6,7 +6,7 @@ from base.serializers import UserSerializer, UserSerializerWithToken
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
 from django.contrib.auth.hashers import make_password
-from rest_framework import generics, status
+from rest_framework import generics, status, permissions
 from django.http import JsonResponse
 from rest_framework.permissions import AllowAny
 
@@ -94,19 +94,19 @@ def getUsers(request):
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
 from rest_framework.authtoken.models import Token
 
-@api_view(['POST'])
-@authentication_classes([])
-@permission_classes([AllowAny])
-def find_user_id(request):
-    phone_number = request.POST.get('phone_number','')
-    print(phone_number)
-    print('실행되나??')
-    try:
-        user = User.objects.get(phone_number = phone_number)
-        return Response({'username':user.username})
-    except User.DoesNotExist:
-        return Response({'error':'입력하신 번호로 가입된 이메일을 찾을 수 없습니다.'})
-    
+# @api_view(['POST'])
+# # @authentication_classes([])
+# @permission_classes([AllowAny])
+# def find_user_id(request):
+#     phone_number = request.POST.get('phone_number','')
+#     print(phone_number)
+#     print('실행되나??')
+#     try:
+#         user = User.objects.get(phone_number = phone_number)
+#         return Response({'username':user.username})
+#     except User.DoesNotExist:
+#         return Response({'error':'입력하신 번호로 가입된 이메일을 찾을 수 없습니다.'})
+
 @api_view(['PUT'])
 @permission_classes([IsAuthenticated])
 def update_password(request):
@@ -119,3 +119,19 @@ def update_password(request):
             user.password = make_password(data['password'])
         user.save()
     return Response(serializer.data)
+
+
+# 다른 방식
+class find_user_id(generics.CreateAPIView):
+    permission_classes = [permissions.AllowAny]
+    serializer_class = UserSerializer
+
+    def post(self, request, *args, **kwargs):
+        phone_number = request.data.get('phone_number')
+
+        try:
+            user = User.objects.get(phone_number=phone_number)
+
+            return JsonResponse({'e-mail': user.email}, status=status.HTTP_200_OK)
+        except User.DoesNotExist:
+            return JsonResponse({'error': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
