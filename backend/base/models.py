@@ -9,6 +9,10 @@ class User(AbstractUser):
     user_permissions = models.ManyToManyField(Permission, related_name='custom_user_set')
     phone_number=PhoneNumberField(unique=True)
 
+    # 추가 
+    def __str__(self):
+        return self.email
+
 class Post(models.Model):
     id=models.AutoField(primary_key=True)
     title=models.CharField(max_length=100)

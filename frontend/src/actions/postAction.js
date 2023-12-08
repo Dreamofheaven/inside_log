@@ -11,13 +11,14 @@ import {
     REVIEW_DELETE_REQUEST, REVIEW_DELETE_SUCCESS, REVIEW_DELETE_FAIL,
 } from '../constants/postConstants'
 
-export const createPost = (title, body,userLogin) => async (dispatch) => {
+export const createPost = (title, body, userLogin) => async (dispatch) => {
     try {
         dispatch({type: POST_CREATE_REQUEST})
+
         const { data } =  await axios.post(`http://127.0.0.1:8000/posts/create/`,
             {
                 'title': title,
-               'body': body,
+                'body': body,
             },{
                 headers: {
                     'Content-type': 'application/json',

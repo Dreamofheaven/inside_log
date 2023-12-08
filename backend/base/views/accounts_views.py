@@ -123,7 +123,8 @@ def update_password(request):
 
 # 다른 방식
 class find_user_id(generics.CreateAPIView):
-    permission_classes = [permissions.AllowAny]
+    print(generics.CreateAPIView)
+    permission_classes = [AllowAny]
     serializer_class = UserSerializer
 
     def post(self, request, *args, **kwargs):
@@ -132,6 +133,29 @@ class find_user_id(generics.CreateAPIView):
         try:
             user = User.objects.get(phone_number=phone_number)
 
+
             return JsonResponse({'e-mail': user.email}, status=status.HTTP_200_OK)
         except User.DoesNotExist:
             return JsonResponse({'error': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
+
+
+
+# 로그인이랑 비슷한 방식 
+# class MyTokenObtainWithEmailView(TokenObtainPairView):
+#     serializer_class = MyTokenObtainPairSerializer
+
+#     def post(self, request):
+#         print('호출은 되냐?')
+#         phone_number = request.data.get('phone_number', None)
+
+#         if phone_number:
+#             try:
+#                 user = User.objects.get(phone_number=phone_number)
+
+#                 serializer = UserSerializerWithToken(user)
+#                 user_data = serializer.data
+#                 return Response({'email': user_data['email']})
+#             except User.DoesNotExist:
+#                 return Response({'error': '해당 사용자를 찾을 수 없습니다.'}, status=400)
+            
+#         return Response({'error': '전화번호를 입력해주세요.'}, status=400)

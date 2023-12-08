@@ -9,4 +9,5 @@ urlpatterns = [
   path('<str:pk>/', views.getUserById, name='user'),
   path('delete/<str:pk>/', views.deleteUser, name='user-delete'),
   path('search_id/', views.find_user_id, name='user-find'),
+  # path('search_id/', views.MyTokenObtainWithEmailView.as_view(), name='token_obtain_email'),
 ] 
