@@ -28,6 +28,9 @@
 
 [내 안의 긍정이 서비스 바로가기](https://inside-log-fe.vercel.app/)
 
+<p>테스트 ID/PW</p>
+<p>ID(email) : test@test.com</p>
+<p>PW : 12345678!</p>
 </div>
 
 <br/>
